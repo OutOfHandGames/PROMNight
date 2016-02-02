@@ -8,7 +8,7 @@ public abstract class Actions : MonoBehaviour
     public Point2[] legalActions;
     Entity entity;
 
-    public abstract void performAction();
+    public abstract void performAction(Tile tileClicked);
 
     public void setEntity(Entity entitySelected)
     {
@@ -18,6 +18,15 @@ public abstract class Actions : MonoBehaviour
     public Entity getEntity()
     {
         return entity;
+    }
+
+    /**
+    Returns true if the tile is out of bounds of the map.
+    */
+    public bool checkOutOfBoundsPoint(Point2 origin, Point2 offset)
+    {
+        Point2 checkPosition = origin + offset;
+        return checkPosition.x < 0 || checkPosition.y < 0;
     }
 
     public abstract void OnActionClicked();

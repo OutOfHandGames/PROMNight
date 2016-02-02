@@ -7,7 +7,7 @@ public class ExpandAction : Actions {
 
     void Start()
     {
-        legalActions = new Point2[]{ Point2.NORTH, Point2.SOUTH, Point2.EAST, Point2.WEST };
+        legalActions = new Point2[]{ Point2.NORTH, Point2.SOUTH, Point2.EAST, Point2.WEST, Point2.ZERO };
     }
 
 
@@ -18,16 +18,23 @@ public class ExpandAction : Actions {
 
     public override void OnActionClicked()
     {
-        performAction();
+        performAction(getEntity().getCurrentTile());
         
     }
 
-    public override void performAction()
+    public override void performAction(Tile tileSelected)
     {
-
+        Tile[,] map = MapGenerator.mapTiles;
+        Point2 originPosition = tileSelected.getLocation();
+        Point2 checkPosition = null;
         foreach (Point2 p in legalActions)
         {
+            checkPosition = new Point2(originPosition.x + p.x, originPosition.y + p.y);
+            map[checkPosition.x, checkPosition.y].setTileType(getEntity().entityType);
+            if (map[checkPosition.x, checkPosition.y].getCurrentEntity().entityType != getEntity().entityType)
+            {
 
+            }
         }
     }
 }

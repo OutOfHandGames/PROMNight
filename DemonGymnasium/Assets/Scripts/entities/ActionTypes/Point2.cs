@@ -8,8 +8,6 @@ public class Point2  {
     public static Point2 WEST = new Point2(-1, 0);
     public static Point2 ZERO = new Point2();
 
-    int[] vec;
-
     public Point2() : this(0, 0)
     {
         
@@ -19,7 +17,6 @@ public class Point2  {
     {
         this.x = x;
         this.y = y;
-        vec = new int[] { x, y };
     }
 
     public static Point2 operator + (Point2 p1, Point2 p2)

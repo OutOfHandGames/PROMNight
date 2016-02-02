@@ -18,6 +18,8 @@ public class MapGenerator : MonoBehaviour {
 	private Entity[] monsters;
 	private Entity[] players;
     public static int[] currentTileTypes = new int[3];
+    public static int BoardWidth;
+    public static int BoardHeight;
 
 
 	void Start() {
@@ -26,6 +28,8 @@ public class MapGenerator : MonoBehaviour {
 		players = new Entity[numPlayers];
 		generateMap();
         updateTileScore();
+        BoardWidth = mapTiles.GetLength(0);
+        BoardHeight = mapTiles.GetLength(1);
         //print(currentTileTypes[2]);
 	}
 
