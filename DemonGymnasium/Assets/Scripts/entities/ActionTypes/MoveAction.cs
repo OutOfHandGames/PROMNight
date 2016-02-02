@@ -4,7 +4,7 @@ using System;
 
 public class MoveAction : Actions
 {
-    public override Vector2[] legalActions()
+    public override Point2[] getLegalActions()
     {
         throw new NotImplementedException();
     }

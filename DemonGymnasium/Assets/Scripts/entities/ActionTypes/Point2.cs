@@ -6,6 +6,7 @@ public class Point2  {
     public static Point2 SOUTH = new Point2(0, -1);
     public static Point2 EAST = new Point2(1, 0);
     public static Point2 WEST = new Point2(-1, 0);
+    public static Point2 ZERO = new Point2();
 
     int[] vec;
 
@@ -19,5 +20,35 @@ public class Point2  {
         this.x = x;
         this.y = y;
         vec = new int[] { x, y };
+    }
+
+    public static Point2 operator + (Point2 p1, Point2 p2)
+    {
+        return new Point2(p1.x + p2.x, p1.y + p2.y);
+    }
+
+    public static Point2 operator - (Point2 p1, Point2 p2)
+    {
+        return new Point2(p1.x - p2.x, p1.y - p2.y);
+    }
+
+    public static Point2 operator - (Point2 p)
+    {
+        return new Point2(-p.x, -p.y);
+    }
+
+    public static Point2 operator * (Point2 p, int i)
+    {
+        return new Point2(p.x * i, p.x * i);
+    }
+
+    public static Point2 operator * (int i, Point2 p)
+    {
+        return p * i;
+    }
+
+    public static Point2 operator / (Point2 p1, int i)
+    {
+        return new Point2(p1.x / i, p1.y / i);
     }
 }

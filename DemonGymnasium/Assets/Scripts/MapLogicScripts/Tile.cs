@@ -11,8 +11,7 @@ public class Tile : MonoBehaviour {
     GraphicTile graphicTile;
     public int currentTileType = NEUTRAL;
 	Entity entityPresent;
-    int x;
-    int y;
+    Point2 location;
 
 	Renderer[] rend;
 	public bool locked;
@@ -127,19 +126,23 @@ public class Tile : MonoBehaviour {
 
     public void setLocation(int x, int y)
     {
-        this.x = x;
-        this.y = y;
+        this.location = new Point2(x, y);
 		transform.position = new Vector3 (x, 0, y);
     }
 
     public int getX()
     {
-        return x;
+        return location.x;
     }
 
     public int getY()
     {
-        return y;
+        return location.y;
+    }
+
+    public Point2 getLocation()
+    {
+        return location;
     }
 
 	void OnMouseDown() {
