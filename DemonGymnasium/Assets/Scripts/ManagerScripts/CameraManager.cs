@@ -2,11 +2,8 @@
 using System.Collections;
 
 public class CameraManager : MonoBehaviour {
-    public Vector3 janitorCameraPosition;
-    public Vector3 demonCameraPosition;
-
-    public Vector3 janitorCameraRotation;
-    public Vector3 demonCameraRotation;
+    public Transform janitorCamera;
+    public Transform demonCamera;
 
     public float cameraMovementTime = 2;
 
@@ -27,8 +24,8 @@ public class CameraManager : MonoBehaviour {
     {
         gameManager = GetComponent<GameManager>();
         mainCamera = GameObject.FindObjectOfType<Camera>();
-        cameraPositions = new Vector3[] { janitorCameraPosition, demonCameraPosition };
-        cameraRotations = new Quaternion[] { Quaternion.Euler(janitorCameraRotation), Quaternion.Euler(demonCameraRotation) };
+        cameraPositions = new Vector3[] { janitorCamera.position, demonCamera.position };
+        cameraRotations = new Quaternion[] { janitorCamera.rotation, demonCamera.rotation };
         shiftCamera(gameManager.currentTurn);
     }
 
