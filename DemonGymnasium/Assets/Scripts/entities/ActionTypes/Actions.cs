@@ -18,4 +18,6 @@ public abstract class Actions : MonoBehaviour
     public abstract void OnActionClicked();
 
     public abstract Vector2[] legalActions();
+
+    
 }
