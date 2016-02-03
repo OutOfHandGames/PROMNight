@@ -23,19 +23,38 @@ public class MoveAction : Actions
         legalActions = new Point2[] { Point2.NORTH, Point2.SOUTH, Point2.EAST, Point2.WEST};
     }
 
-
-    public override Point2[] getLegalActions()
-    {
-        throw new NotImplementedException();
-    }
-
     public override void OnActionClicked()
     {
-        throw new NotImplementedException();
+        getAllValidTiles();
+    }
+
+    void getAllValidTiles()
+    {
+        validPositions.Clear();
+        Point2 o = getEntity().getCurrentTile().getLocation();
+        foreach (Point2 direction in legalActions)
+        {
+            Point2 checkPosition = o + direction;
+            while(!checkOutOfBoundsPoint(checkPosition) && MapGenerator.getTileAtPoint(checkPosition).getCurrentTileType() == getEntity().entityType)
+            {
+                validPositions.AddLast(checkPosition);
+                checkPosition += direction;
+            }
+        }
+        setActive(true);
     }
 
     public override void performAction(Tile tileClicked)
     {
-        throw new NotImplementedException();
+        foreach (Point2 p in validPositions)
+        {
+            if (tileClicked.getLocation() == p)
+            {
+                goalLocation = new Vector3(p.x, 0, p.y);
+                isMoving = true;
+                setActive(false);
+                return;
+            }
+        }
     }
 }

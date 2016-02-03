@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
+
 
 public abstract class Actions : MonoBehaviour
 {
     public int turnCost = 1;
     public string actionName = "Action";
     public Point2[] legalActions;
+    protected LinkedList<Point2> validPositions;//All valid options that the player can click on
     bool actionActive;
     Entity entity;
 
@@ -21,13 +23,28 @@ public abstract class Actions : MonoBehaviour
         return entity;
     }
 
+    public void setActive(bool active)
+    {
+        this.actionActive = active;
+    }
+
+    public bool getActive()
+    {
+        return this.actionActive;
+    }
+
     /**
     Returns true if the tile is out of bounds of the map.
     */
+    public bool checkOutOfBoundsPoint(Point2 p)
+    {
+        Point2 checkPosition = p;
+        return checkPosition.x < 0 || checkPosition.y < 0 || checkPosition.x >= MapGenerator.BoardWidth || checkPosition.y > MapGenerator.BoardHeight;
+    }
+
     public bool checkOutOfBoundsPoint(Point2 origin, Point2 offset)
     {
-        Point2 checkPosition = origin + offset;
-        return checkPosition.x < 0 || checkPosition.y < 0 || checkPosition.x >= MapGenerator.BoardWidth || checkPosition.y > MapGenerator.BoardHeight;
+        return checkOutOfBoundsPoint(origin + offset);
     }
 
     public bool checkEnemyPresent(Tile tile)
@@ -40,8 +57,6 @@ public abstract class Actions : MonoBehaviour
     }
 
     public abstract void OnActionClicked();
-
-    public abstract Point2[] getLegalActions();
 
     
 }

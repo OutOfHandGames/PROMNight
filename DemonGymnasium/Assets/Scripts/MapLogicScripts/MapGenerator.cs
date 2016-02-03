@@ -87,6 +87,11 @@ public class MapGenerator : MonoBehaviour {
         mapTiles[5, 5].setInitialEntity(((GameObject)Instantiate(obstructionObject.gameObject, Vector3.zero, new Quaternion())).GetComponent<Entity>());
     }
 
+    public static Tile getTileAtPoint(Point2 p)
+    {
+        return mapTiles[p.x, p.y];
+    }
+
     public static void updateTileScore()
     {
         for (int k = 0; k < currentTileTypes.Length; k++)

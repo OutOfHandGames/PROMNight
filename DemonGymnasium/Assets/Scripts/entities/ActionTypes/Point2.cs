@@ -48,4 +48,14 @@ public class Point2  {
     {
         return new Point2(p1.x / i, p1.y / i);
     }
+
+    public static bool operator == (Point2 p1, Point2 p2)
+    {
+        return p1.x == p2.x && p1.y == p2.y;
+    }
+
+    public static bool operator != (Point2 p1, Point2 p2)
+    {
+        return p1.x != p2.x || p1.y != p2.y;
+    }
 }
