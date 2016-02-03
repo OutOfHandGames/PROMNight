@@ -53,7 +53,7 @@ public abstract class Entity : MonoBehaviour {
     public virtual void takeDamage()
     {
         //TODO death animation
-
+        currentTile.setEntity(null);
         GameObject.Destroy(this.gameObject);
     }
 

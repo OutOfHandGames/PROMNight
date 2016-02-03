@@ -34,7 +34,7 @@ public class MapGenerator : MonoBehaviour {
 	}
 
 	void generateMap() {
-		int monsterCount = 0, playerCount = 0;
+		//int monsterCount = 0, playerCount = 0;
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
 				GameObject obj = (GameObject)Instantiate(tileObject, Vector3.zero, new Quaternion());

@@ -29,11 +29,15 @@ public class ExpandAction : Actions {
         Point2 checkPosition = null;
         foreach (Point2 p in legalActions)
         {
-            checkPosition = new Point2(originPosition.x + p.x, originPosition.y + p.y);
-            map[checkPosition.x, checkPosition.y].setTileType(getEntity().entityType);
-            if (map[checkPosition.x, checkPosition.y].getCurrentEntity().entityType != getEntity().entityType)
+            if (!checkOutOfBoundsPoint(originPosition, p))
             {
-
+                checkPosition = new Point2(originPosition.x + p.x, originPosition.y + p.y);
+                Tile tile = map[checkPosition.x, checkPosition.y];
+                tile.setTileType(getEntity().entityType);
+                if (checkEnemyPresent(tile))
+                {
+                    tile.getCurrentEntity().takeDamage();
+                }
             }
         }
     }
