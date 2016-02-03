@@ -36,7 +36,7 @@ public class Point2  {
 
     public static Point2 operator * (Point2 p, int i)
     {
-        return new Point2(p.x * i, p.x * i);
+        return new Point2(p.x * i, p.y * i);
     }
 
     public static Point2 operator * (int i, Point2 p)

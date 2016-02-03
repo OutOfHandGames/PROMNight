@@ -7,11 +7,13 @@ public abstract class Actions : MonoBehaviour
     public int turnCost = 1;
     public string actionName = "Action";
     public Point2[] legalActions;
-    protected LinkedList<Point2> validPositions;//All valid options that the player can click on
+    protected LinkedList<Point2> validPositions = new LinkedList<Point2>();//All valid options that the player can click on
     bool actionActive;
     Entity entity;
 
-    public abstract void performAction(Tile tileClicked);
+    public abstract bool performAction(Tile tileClicked);
+
+    public abstract void initializeLegalActions();
 
     public void setEntity(Entity entitySelected)
     {
@@ -33,6 +35,12 @@ public abstract class Actions : MonoBehaviour
         return this.actionActive;
     }
 
+     //public abstract void setValidPositions();
+
+    public LinkedList<Point2> getValidPosition()
+    {
+        return validPositions;
+    }
     /**
     Returns true if the tile is out of bounds of the map.
     */

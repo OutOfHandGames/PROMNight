@@ -145,14 +145,17 @@ public class PlayerModal : MonoBehaviour
     public void moveButtonClicked()
     {
         //GameManager.manager.setupMove();
-        actionManager.selectMovement(playerSelectManager.currentCharacterSelected);
+        playerSelectManager.mouseClicked();
+        actionManager.actionSelected(0);
 		Disable ();
     }
 
     public void shootButtonClicked()
     {
         //GameManager.manager.setupAttack();
-        actionManager.selectAttack(playerSelectManager.currentCharacterSelected);
+        //actionManager.selectAttack(playerSelectManager.currentCharacterSelected);
+        playerSelectManager.mouseClicked();
+        actionManager.actionSelected(1);
 		Disable ();
     }
 
@@ -160,7 +163,9 @@ public class PlayerModal : MonoBehaviour
     {
         //GameManager.manager.expand();
 
-        actionManager.selectExpand(playerSelectManager.currentCharacterSelected);
+        //actionManager.selectExpand(playerSelectManager.currentCharacterSelected);
+        playerSelectManager.mouseClicked();
+        actionManager.actionSelected(2);
 		Disable ();
     }
 

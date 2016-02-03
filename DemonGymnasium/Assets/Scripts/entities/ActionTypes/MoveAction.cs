@@ -20,6 +20,10 @@ public class MoveAction : Actions
 
     void Start()
     {
+    }
+
+    public override void initializeLegalActions()
+    {
         legalActions = new Point2[] { Point2.NORTH, Point2.SOUTH, Point2.EAST, Point2.WEST};
     }
 
@@ -44,7 +48,7 @@ public class MoveAction : Actions
         setActive(true);
     }
 
-    public override void performAction(Tile tileClicked)
+    public override bool performAction(Tile tileClicked)
     {
         foreach (Point2 p in validPositions)
         {
@@ -53,8 +57,9 @@ public class MoveAction : Actions
                 goalLocation = new Vector3(p.x, 0, p.y);
                 isMoving = true;
                 setActive(false);
-                return;
+                return true;
             }
         }
+        return false;
     }
 }
