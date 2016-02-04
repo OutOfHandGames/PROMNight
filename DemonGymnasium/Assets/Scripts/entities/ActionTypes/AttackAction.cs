@@ -32,7 +32,7 @@ public class AttackAction : Actions
     {
         Point2 clickPoint = tileClicked.getLocation();
         Point2 origin = getEntity().getCurrentTile().getLocation();
-
+        print(origin.x + "  " + origin.y);
         foreach (Point2 p in validPositions)
         {
             if (p == clickPoint)
@@ -53,7 +53,7 @@ public class AttackAction : Actions
                 return true;
             }
         }
-
+        setActive(false);
         return false;
     }
 

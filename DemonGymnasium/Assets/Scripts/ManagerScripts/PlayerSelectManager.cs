@@ -38,6 +38,7 @@ public class PlayerSelectManager : MonoBehaviour {
             if (Physics.Raycast(ray, out hit))
             {
                 Tile tile = hit.collider.GetComponent<Tile>();
+
                 currentTileSelected = tile;
                 if (tile != null)
                 {

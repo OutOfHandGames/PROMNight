@@ -35,6 +35,7 @@ public class ActionManager : MonoBehaviour
 
     public void actionSelected(int actionID)
     {
+        print(playerSelectManager.currentCharacterSelected);
         Actions action = playerSelectManager.currentCharacterSelected.GetComponent<EntityActionManager>().actions[actionID];
         action.OnActionClicked();
         if (action.getActive())
@@ -51,8 +52,17 @@ public class ActionManager : MonoBehaviour
     public void performAction()
     {
         Actions action = currentEntity.GetComponent<EntityActionManager>().actions[currentActionSelected];
-        print(action.name);
-        action.performAction(playerSelectManager.currentTileSelected);
+
+        if (currentActionSelected >= 0 && action.getActive())
+        {
+            print(action.name);
+            action.performAction(playerSelectManager.currentTileSelected);
+        }
+        else
+        {
+            currentActionSelected = -1;
+        }
+
     }
 
 }

@@ -81,10 +81,7 @@ public class Tile : MonoBehaviour {
 	public void setEntity(Entity entity) {
         removeEntity();
 		this.entityPresent = entity;
-        if (entity != null)
-        {
-            entity.setCurrentTile(this);
-        }
+        
     }
 
 	public void setInitialEntity(Entity entity) {
@@ -131,6 +128,7 @@ public class Tile : MonoBehaviour {
     public void setLocation(int x, int y)
     {
         this.location = new Point2(x, y);
+        //print(location.x + "  " + location.y);
 		transform.position = new Vector3 (x, 0, y);
     }
 
