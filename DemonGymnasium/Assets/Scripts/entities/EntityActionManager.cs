@@ -10,10 +10,16 @@ public class EntityActionManager : MonoBehaviour {
     void Start()
     {
         Entity entity = GetComponent<Entity>();
+        int i = 0;
         foreach(Actions a in actions)
         {
-            a.setEntity(entity);
-            a.initializeLegalActions();
+            GameObject obj = ((GameObject)Instantiate(a.gameObject, this.transform.position, new Quaternion()));
+            obj.transform.parent = transform;
+            Actions act = obj.GetComponent<Actions>();
+            act.setEntity(entity);
+            act.initializeLegalActions();
+            actions[i] = act;
+            i++;
         }
     }
     
