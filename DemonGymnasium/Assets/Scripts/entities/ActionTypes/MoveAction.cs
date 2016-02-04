@@ -19,8 +19,10 @@ public class MoveAction : Actions
     }
 
     void Start()
-    {
+    { 
     }
+
+    
 
     public override void initializeLegalActions()
     {
@@ -39,10 +41,35 @@ public class MoveAction : Actions
         foreach (Point2 direction in legalActions)
         {
             Point2 checkPosition = o + direction;
-            while(!checkOutOfBoundsPoint(checkPosition) && MapGenerator.getTileAtPoint(checkPosition).getCurrentTileType() == getEntity().entityType)
+            //print(checkPosition);
+            while(!checkOutOfBoundsPoint(checkPosition))
             {
+                Tile tileAtPoint = MapGenerator.getTileAtPoint(checkPosition);
+                if (checkFriendlyPresent(tileAtPoint))
+                {
+                    break;
+                }
+                if (checkObstaclePresent(tileAtPoint))
+                {
+                    break;
+                }
+                if (checkTileControlledEnemy(tileAtPoint))
+                {
+                    break;
+                }
+                
                 validPositions.AddLast(checkPosition);
+
+                if (tileAtPoint.getCurrentTileType() == Tile.NEUTRAL)
+                {
+                    break;
+                }
+                if (getEntity().getCurrentTile().getCurrentTileType() == Tile.NEUTRAL)
+                {
+                    break;
+                }
                 checkPosition += direction;
+                //print(checkOutOfBoundsPoint(checkPosition));
             }
         }
         setActive(true);
@@ -55,6 +82,7 @@ public class MoveAction : Actions
             if (tileClicked.getLocation() == p)
             {
                 goalLocation = new Vector3(p.x, 0, p.y);
+                tileClicked.setEntity(getEntity());
                 isMoving = true;
                 setActive(false);
                 return true;

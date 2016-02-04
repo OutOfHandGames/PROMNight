@@ -24,7 +24,10 @@ public class AttackAction : Actions
             Point2 checkPoint = origin + p;
             if (!checkOutOfBoundsPoint(checkPoint))
             {
-                validPositions.AddLast(checkPoint);
+                if (MapGenerator.getTileAtPoint(checkPoint).getCurrentTileType() != getEntity().entityType)
+                {
+                    validPositions.AddLast(checkPoint);
+                }
             }
         }
     }
@@ -37,7 +40,7 @@ public class AttackAction : Actions
 
         foreach (Point2 p in validPositions)
         {
-            print("P" + p + "   click" + clickPoint );
+            //print("P" + p + "   click" + clickPoint );
             if (p == clickPoint)
             {
                 Point2 direction = p - origin;

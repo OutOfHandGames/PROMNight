@@ -47,7 +47,7 @@ public abstract class Actions : MonoBehaviour
     public bool checkOutOfBoundsPoint(Point2 p)
     {
         Point2 checkPosition = p;
-        return checkPosition.x < 0 || checkPosition.y < 0 || checkPosition.x >= MapGenerator.BoardWidth || checkPosition.y > MapGenerator.BoardHeight;
+        return checkPosition.x < 0 || checkPosition.y < 0 || checkPosition.x >= MapGenerator.mapTiles.GetLength(0) || checkPosition.y >= MapGenerator.mapTiles.GetLength(1);
     }
 
     public bool checkOutOfBoundsPoint(Point2 origin, Point2 offset)
@@ -61,7 +61,44 @@ public abstract class Actions : MonoBehaviour
         {
             return false;
         }
+        if (tile.getCurrentEntity().entityType == Tile.NEUTRAL)
+        {
+            return false;
+        }
         return entity.entityType != tile.getCurrentEntity().entityType;
+    }
+
+    public bool checkFriendlyPresent(Tile tile)
+    {
+        if (tile.getCurrentEntity() == null)
+        {
+            return false;
+        }
+        return tile.getCurrentEntity().entityType == getEntity().entityType;
+    }
+
+    public bool checkObstaclePresent(Tile tile)
+    {
+        if (tile.getCurrentEntity() == null)
+        {
+            return false;
+        }
+
+        return tile.getCurrentEntity().entityType == Tile.NEUTRAL;
+    }
+
+    public bool checkTileInControl(Tile tile)
+    {
+        return tile.getCurrentTileType() == getEntity().entityType;
+    }
+
+    public bool checkTileControlledEnemy(Tile tile)
+    {
+        if (tile.getCurrentTileType() == Tile.NEUTRAL)
+        {
+            return false;
+        }
+        return tile.getCurrentTileType() != getEntity().entityType;
     }
 
     public abstract void OnActionClicked();

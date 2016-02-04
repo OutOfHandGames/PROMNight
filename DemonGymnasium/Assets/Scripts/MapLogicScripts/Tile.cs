@@ -82,6 +82,12 @@ public class Tile : MonoBehaviour {
         removeEntity();
 		this.entityPresent = entity;
         
+        if (entity != null)
+        {
+            entity.getCurrentTile().setEntity(null);
+            this.entityPresent.setCurrentTile(this);
+        }
+
     }
 
 	public void setInitialEntity(Entity entity) {

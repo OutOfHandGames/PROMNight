@@ -89,6 +89,7 @@ public class MapGenerator : MonoBehaviour {
 
     public static Tile getTileAtPoint(Point2 p)
     {
+        //print(p);
         return mapTiles[p.x, p.y];
     }
 
