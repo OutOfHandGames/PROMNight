@@ -1,4 +1,4 @@
-﻿
+﻿using UnityEngine;
 public class Point2  {
     public int x;
     public int y;
@@ -18,6 +18,20 @@ public class Point2  {
         this.x = x;
         this.y = y;
     }
+
+    public void normalizeValues()
+    {
+        if (x != 0)
+        {
+            x /= ((int)Mathf.Abs(x));
+        }
+        if (y != 0)
+        {
+            y /= (int)Mathf.Abs(y);
+        }
+    }
+
+    
 
     public static Point2 operator + (Point2 p1, Point2 p2)
     {
@@ -57,5 +71,10 @@ public class Point2  {
     public static bool operator != (Point2 p1, Point2 p2)
     {
         return p1.x != p2.x || p1.y != p2.y;
+    }
+
+    public override string ToString()
+    {
+        return "(X = " + x + ", Y = " + y + ")"; 
     }
 }

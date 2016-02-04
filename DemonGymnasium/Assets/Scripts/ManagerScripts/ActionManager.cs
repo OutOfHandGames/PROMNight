@@ -55,7 +55,7 @@ public class ActionManager : MonoBehaviour
 
         if (currentActionSelected >= 0 && action.getActive())
         {
-            print(action.name);
+            playerSelectManager.mouseClicked();
             action.performAction(playerSelectManager.currentTileSelected);
         }
         else

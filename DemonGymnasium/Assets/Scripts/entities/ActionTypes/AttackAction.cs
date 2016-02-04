@@ -5,6 +5,7 @@ using System;
 public class AttackAction : Actions
 {
     public GameObject projectile;
+    public int attackRange = 2;
 
     public override void initializeLegalActions()
     {
@@ -32,28 +33,30 @@ public class AttackAction : Actions
     {
         Point2 clickPoint = tileClicked.getLocation();
         Point2 origin = getEntity().getCurrentTile().getLocation();
-        print(origin.x + "  " + origin.y);
+        setActive(false);
+
         foreach (Point2 p in validPositions)
         {
+            print("P" + p + "   click" + clickPoint );
             if (p == clickPoint)
             {
                 Point2 direction = p - origin;
-                int scale = (int)Mathf.Max(Mathf.Abs(direction.x), Mathf.Abs(direction.y));
-                direction /= scale;
-                Point2 checkPoint = origin + direction;
-                while (checkPoint != clickPoint)
+                direction.normalizeValues();
+                Point2 checkPoint = origin;
+                for (int i = 0; i < attackRange; i++)
                 {
-                    setTile(checkPoint);
                     checkPoint += direction;
+                    Tile tileAtPoint = MapGenerator.getTileAtPoint(checkPoint);
+                    tileAtPoint.setTileType(getEntity().entityType);
+                    if (checkEnemyPresent(tileAtPoint))
+                    {
+                        tileAtPoint.getCurrentEntity().takeDamage();
+                    }
                 }
-
-                setTile(checkPoint);
-
-                setActive(false);
+                
                 return true;
             }
         }
-        setActive(false);
         return false;
     }
 
