@@ -1,28 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Tile : MonoBehaviour {
+public class Tile : MonoBehaviour
+{
     public const int JANITOR = 0;
     public const int DEMON = 1;
     public const int NEUTRAL = 2;
     //public Color janitorColor = Color.blue;
     //public Color demonColor = Color.green;
 
-   // GraphicTile graphicTile;
+    // GraphicTile graphicTile;
     public int currentTileType = NEUTRAL;
-	Entity entityPresent;
+    Entity entityPresent;
     Point2 location;
 
-	Renderer rend;
-	public bool locked;
+    Renderer rend;
+    public bool locked;
 
 
-	public Material[] floorMaterials = new Material[5];
+    public Material[] floorMaterials = new Material[5];
 
-	void Start() {
+    void Start()
+    {
         rend = GetComponentInChildren<Renderer>();
         PickRandomMaterialForNeutral();
-        
+
         if (entityPresent)
         {
             currentTileType = entityPresent.entityType;
@@ -37,42 +39,50 @@ public class Tile : MonoBehaviour {
         }
     }
 
-	void PickRandomMaterialForNeutral(){
-		int randomNum = (int)Random.Range(0, 100);
-		int resultIndex;
-		if (randomNum >= 0 && randomNum < 60) {
-			resultIndex = 0;
-		} 
-		else if (randomNum >= 60 && randomNum < 65) {
-			resultIndex = 1;
-		} 
-		else if (randomNum >= 65 && randomNum < 90) {
-			resultIndex = 2;
-		} 
-		else if (randomNum >= 90 && randomNum < 95) {
-			resultIndex = 3;
-		} 
-		else {
-			resultIndex = 4;
-		}
+    void PickRandomMaterialForNeutral()
+    {
+        int randomNum = (int)Random.Range(0, 100);
+        int resultIndex;
+        if (randomNum >= 0 && randomNum < 60)
+        {
+            resultIndex = 0;
+        }
+        else if (randomNum >= 60 && randomNum < 65)
+        {
+            resultIndex = 1;
+        }
+        else if (randomNum >= 65 && randomNum < 90)
+        {
+            resultIndex = 2;
+        }
+        else if (randomNum >= 90 && randomNum < 95)
+        {
+            resultIndex = 3;
+        }
+        else
+        {
+            resultIndex = 4;
+        }
 
         rend.material = floorMaterials[resultIndex];
 
-	}
+    }
 
     public bool getIsObstructed()
     {
-		return entityPresent != null;
+        return entityPresent != null;
     }
 
-	public Entity getCurrentEntity() {
-		return this.entityPresent;
-	}
+    public Entity getCurrentEntity()
+    {
+        return this.entityPresent;
+    }
 
-	public void setEntity(Entity entity) {
+    public void setEntity(Entity entity)
+    {
         removeEntity();
-		this.entityPresent = entity;
-        
+        this.entityPresent = entity;
+
         if (entity != null)
         {
             entity.getCurrentTile().setEntity(null);
@@ -81,30 +91,32 @@ public class Tile : MonoBehaviour {
 
     }
 
-	public void setInitialEntity(Entity entity) {
+    public void setInitialEntity(Entity entity)
+    {
         removeEntity();
         entity.transform.parent = this.transform.parent;
         entity.transform.position = transform.position;
-		this.entityPresent = entity;
-		entity.setCurrentTile (this);
+        this.entityPresent = entity;
+        entity.setCurrentTile(this);
         if (entity.GetType() != typeof(Obstacle))
         {
             int type = (entity.getIsPlayer() ? 0 : 1);
-           // graphicTile = GetComponent<GraphicTile>();
-           // graphicTile.setAnim();
+            // graphicTile = GetComponent<GraphicTile>();
+            // graphicTile.setAnim();
             setTileType(type);
         }
     }
 
     public void setTileType(int tileType)
     {
-		if(!locked){
+        if (!locked)
+        {
             //graphicTile.selectTileType(tileType);
-            
-			this.currentTileType = tileType;
+
+            this.currentTileType = tileType;
             TileColorManager.resetTileColor(this);
         }
-        
+
     }
 
     public int getCurrentTileType()
@@ -128,7 +140,7 @@ public class Tile : MonoBehaviour {
     {
         this.location = new Point2(x, y);
         //print(location.x + "  " + location.y);
-		transform.position = new Vector3 (x, 0, y);
+        transform.position = new Vector3(x, 0, y);
     }
 
     public int getX()
@@ -146,9 +158,9 @@ public class Tile : MonoBehaviour {
         return location;
     }
 
-	void OnMouseDown() {
-        
-	}
+    void OnMouseExit()
+    {
+        TileColorManager.resetTileColor(this);
+    }
 
-	
 }

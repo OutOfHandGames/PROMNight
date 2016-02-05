@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
+
+using System.Collections.Generic;
 
 public class TileColorManager : MonoBehaviour {
     public static Color janitorControlledTile = Color.blue;
@@ -8,19 +9,41 @@ public class TileColorManager : MonoBehaviour {
     public static Color hoverTileColor = Color.red;
     public static Color neutralTileColor = Color.white;
 
+    Camera mainCamera;
+    bool colorValidTilesOn;
+    List<Point2> validPoints;
+
     void Start()
     {
         colorAllTiles();
+        mainCamera = GameObject.FindObjectOfType<Camera>();
     }
 
     void Update()
     {
+        if (colorValidTilesOn)
+        {
+            colorValidSquares(validPoints);
+        }
         highlightMouseTile();
+
     }
 
     void highlightMouseTile()
     {
+        Tile tile = null;
 
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            tile = hit.collider.GetComponent<Tile>();
+            if (tile != null)
+            {
+                tile.GetComponentInChildren<Renderer>().material.color = hoverTileColor;
+            }
+        }
     }
 
     public void colorAllTiles()
@@ -34,14 +57,23 @@ public class TileColorManager : MonoBehaviour {
         }
     }
 
-    public void colorValidSquares(Point2[] validPoints)
+    public void colorValidSquares(List<Point2> validPoints)
     {
-
+        foreach (Point2 p in validPoints)
+        {
+            MapGenerator.getTileAtPoint(p).GetComponentInChildren<Renderer>().material.color = validTileSelection;
+        }
+        this.validPoints = validPoints;
+        colorValidTilesOn = true;
     }
 
-    public void resetValidSquares(Point2[] validPoints)
+    public void resetValidSquares(List<Point2> validPoints)
     {
-
+        foreach (Point2 p in validPoints)
+        {
+            resetTileColor(MapGenerator.getTileAtPoint(p));
+        }
+        colorValidTilesOn = false;
     }
 
     public static void resetTileColor(Tile tile)

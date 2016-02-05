@@ -57,14 +57,17 @@ public class MoveAction : Actions
                 {
                     break;
                 }
-                
-                validPositions.AddLast(checkPosition);
+                if (tileAtPoint.getCurrentTileType() == Tile.NEUTRAL && tileAtPoint.getLocation() - direction != getEntity().getCurrentTile().getLocation())
+                {
+                    break;
+                }
+                validPositions.Add(checkPosition);
 
                 if (tileAtPoint.getCurrentTileType() == Tile.NEUTRAL)
                 {
                     break;
                 }
-                if (getEntity().getCurrentTile().getCurrentTileType() == Tile.NEUTRAL)
+                if (getEntity().getCurrentTile().getCurrentTileType() == Tile.NEUTRAL)//Checks if player is on a neutral tile. In which case they can't slide
                 {
                     break;
                 }

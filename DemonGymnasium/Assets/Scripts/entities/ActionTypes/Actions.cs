@@ -7,7 +7,7 @@ public abstract class Actions : MonoBehaviour
     public int turnCost = 1;
     public string actionName = "Action";
     public Point2[] legalActions;
-    protected LinkedList<Point2> validPositions = new LinkedList<Point2>();//All valid options that the player can click on
+    protected List<Point2> validPositions = new List<Point2>();//All valid options that the player can click on
     bool actionActive;
     Entity entity;
 
@@ -37,7 +37,7 @@ public abstract class Actions : MonoBehaviour
 
      //public abstract void setValidPositions();
 
-    public LinkedList<Point2> getValidPosition()
+    public List<Point2> getValidPosition()
     {
         return validPositions;
     }

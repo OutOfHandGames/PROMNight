@@ -26,7 +26,7 @@ public class AttackAction : Actions
             {
                 if (MapGenerator.getTileAtPoint(checkPoint).getCurrentTileType() != getEntity().entityType)
                 {
-                    validPositions.AddLast(checkPoint);
+                    validPositions.Add(checkPoint);
                 }
             }
         }
