@@ -5,26 +5,24 @@ public class Tile : MonoBehaviour {
     public const int JANITOR = 0;
     public const int DEMON = 1;
     public const int NEUTRAL = 2;
-    public Color janitorColor = Color.blue;
-    public Color demonColor = Color.green;
+    //public Color janitorColor = Color.blue;
+    //public Color demonColor = Color.green;
 
-    GraphicTile graphicTile;
+   // GraphicTile graphicTile;
     public int currentTileType = NEUTRAL;
 	Entity entityPresent;
     Point2 location;
 
-	Renderer[] rend;
+	Renderer rend;
 	public bool locked;
 
 
 	public Material[] floorMaterials = new Material[5];
 
 	void Start() {
-		rend = GetComponentsInChildren<Renderer> ();
+        rend = GetComponentInChildren<Renderer>();
+        PickRandomMaterialForNeutral();
         
-        
-        graphicTile = GetComponent<GraphicTile>();
-		PickRandomMaterialForNeutral ();
         if (entityPresent)
         {
             currentTileType = entityPresent.entityType;
@@ -37,9 +35,6 @@ public class Tile : MonoBehaviour {
         {
             setTileType(NEUTRAL);
         }
-        rend[0].material.color = janitorColor;
-        rend[1].material.color = demonColor;
-        rend[2].material.color = Color.white;
     }
 
 	void PickRandomMaterialForNeutral(){
@@ -60,12 +55,8 @@ public class Tile : MonoBehaviour {
 		else {
 			resultIndex = 4;
 		}
-			
-        foreach (Renderer r in rend)
-        {
-            r.materials = new Material[] { floorMaterials[resultIndex] };
-        }
-        
+
+        rend.material = floorMaterials[resultIndex];
 
 	}
 
@@ -99,8 +90,8 @@ public class Tile : MonoBehaviour {
         if (entity.GetType() != typeof(Obstacle))
         {
             int type = (entity.getIsPlayer() ? 0 : 1);
-            graphicTile = GetComponent<GraphicTile>();
-            graphicTile.setAnim();
+           // graphicTile = GetComponent<GraphicTile>();
+           // graphicTile.setAnim();
             setTileType(type);
         }
     }
@@ -108,9 +99,11 @@ public class Tile : MonoBehaviour {
     public void setTileType(int tileType)
     {
 		if(!locked){
-			graphicTile.selectTileType(tileType);
+            //graphicTile.selectTileType(tileType);
+            
 			this.currentTileType = tileType;
-		}
+            TileColorManager.resetTileColor(this);
+        }
         
     }
 
@@ -157,18 +150,5 @@ public class Tile : MonoBehaviour {
         
 	}
 
-	void OnMouseOver() {
-        foreach(Renderer r in rend)
-        {
-            r.material.color = Color.red;
-        }
-
-	}
-
-	void OnMouseExit() {
-        rend[0].material.color = janitorColor;
-        rend[1].material.color = demonColor;
-        rend[2].material.color = Color.white;
-    }
-    
+	
 }

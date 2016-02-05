@@ -30,6 +30,7 @@ public class MapGenerator : MonoBehaviour {
         updateTileScore();
         BoardWidth = mapTiles.GetLength(0);
         BoardHeight = mapTiles.GetLength(1);
+        GetComponent<TileColorManager>().enabled = true;
         //print(currentTileTypes[2]);
 	}
 
