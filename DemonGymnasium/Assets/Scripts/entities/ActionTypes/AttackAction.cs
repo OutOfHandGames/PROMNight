@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 public class AttackAction : Actions
 {
@@ -16,10 +17,15 @@ public class AttackAction : Actions
 
     public override void OnActionClicked()
     {
+        findValidPositions();
+    }
+
+    public override List<Point2> findValidPositions()
+    {
         validPositions.Clear();
         Point2 origin = getEntity().getCurrentTile().getLocation();
         setActive(true);
-        foreach(Point2 p in legalActions)
+        foreach (Point2 p in legalActions)
         {
             Point2 checkPoint = origin + p;
             if (!checkOutOfBoundsPoint(checkPoint))
@@ -30,6 +36,8 @@ public class AttackAction : Actions
                 }
             }
         }
+
+        return validPositions;
     }
 
     public override bool performAction(Tile tileClicked)

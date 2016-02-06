@@ -26,7 +26,6 @@ public class ActionManager : MonoBehaviour
         }
     }
 
-
     public void onActionClicked()
     {
         if (currentActionSelected >= 0)

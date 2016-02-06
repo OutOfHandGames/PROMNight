@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+
+
+[System.Serializable]
 public class Point2  {
     public int x;
     public int y;

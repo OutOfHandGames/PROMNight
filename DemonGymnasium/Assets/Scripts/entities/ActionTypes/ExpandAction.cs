@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 public class ExpandAction : Actions {
 
@@ -20,23 +21,23 @@ public class ExpandAction : Actions {
         
     }
 
+    public override List<Point2> findValidPositions()
+    {
+
+        return validPositions;
+    }
+
     public override bool performAction(Tile tileSelected)
     {
-        Tile[,] map = MapGenerator.mapTiles;
-        Point2 originPosition = tileSelected.getLocation();
-        Point2 checkPosition = null;
-        foreach (Point2 p in legalActions)
+        findValidPositions();
+        foreach (Point2 p in validPositions)
         {
-            if (!checkOutOfBoundsPoint(originPosition, p))
+            Tile tileAtPoint = MapGenerator.getTileAtPoint(p);
+            if (checkEnemyPresent(tileAtPoint))
             {
-                checkPosition = new Point2(originPosition.x + p.x, originPosition.y + p.y);
-                Tile tile = map[checkPosition.x, checkPosition.y];
-                tile.setTileType(getEntity().entityType);
-                if (checkEnemyPresent(tile))
-                {
-                    tile.getCurrentEntity().takeDamage();
-                }
+                tileAtPoint.getCurrentEntity().takeDamage();
             }
+            tileAtPoint.setTileType(getEntity().entityType);
         }
         return true;
     }

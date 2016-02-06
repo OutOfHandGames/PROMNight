@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 public class MoveAction : Actions
 {
@@ -31,10 +32,10 @@ public class MoveAction : Actions
 
     public override void OnActionClicked()
     {
-        getAllValidTiles();
+        findValidPositions();
     }
 
-    void getAllValidTiles()
+    public override List<Point2> findValidPositions()
     {
         validPositions.Clear();
         Point2 o = getEntity().getCurrentTile().getLocation();
@@ -76,6 +77,7 @@ public class MoveAction : Actions
             }
         }
         setActive(true);
+        return validPositions;
     }
 
     public override bool performAction(Tile tileClicked)

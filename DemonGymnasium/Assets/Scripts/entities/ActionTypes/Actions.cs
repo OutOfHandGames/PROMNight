@@ -35,7 +35,9 @@ public abstract class Actions : MonoBehaviour
         return this.actionActive;
     }
 
-     //public abstract void setValidPositions();
+    //public abstract void setValidPositions();
+
+    public abstract List<Point2> findValidPositions();
 
     public List<Point2> getValidPosition()
     {
