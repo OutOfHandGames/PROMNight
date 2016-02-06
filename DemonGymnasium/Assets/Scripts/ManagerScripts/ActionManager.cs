@@ -6,6 +6,8 @@ public class ActionManager : MonoBehaviour
     public GameObject Demon_Expand_FX;
     public GameObject Janitor_Expand_FX;
     public GameObject LockUI;
+
+    GameManager gameManager;
     int currentActionSelected;
     Entity currentEntity;
     PlayerSelectManager playerSelectManager;
@@ -14,6 +16,7 @@ public class ActionManager : MonoBehaviour
     void Start()
     {
         playerSelectManager = GetComponent<PlayerSelectManager>();
+        gameManager = GetComponent<GameManager>();
         currentActionSelected = -1;
         tileColorManager = GetComponent<TileColorManager>();
     }
@@ -60,7 +63,10 @@ public class ActionManager : MonoBehaviour
         if (currentActionSelected >= 0 && action.getActive())
         {
             playerSelectManager.mouseClicked();
-            action.performAction(playerSelectManager.currentTileSelected);
+            if (action.performAction(playerSelectManager.currentTileSelected))
+            {
+                gameManager.performAction();
+            }
         }
         else
         {
