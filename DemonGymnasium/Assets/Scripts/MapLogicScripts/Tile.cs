@@ -158,9 +158,5 @@ public class Tile : MonoBehaviour
         return location;
     }
 
-    void OnMouseExit()
-    {
-        TileColorManager.resetTileColor(this);
-    }
 
 }

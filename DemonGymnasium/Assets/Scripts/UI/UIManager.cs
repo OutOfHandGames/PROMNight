@@ -69,5 +69,9 @@ public class UIManager : MonoBehaviour {
 		endPanel.GetComponent<EndPanel_UI> ().Setup (winner);
 	}
 
+    public bool getActionPanelActive()
+    {
+        return actionPanel.activeSelf;
+    }
 
 }

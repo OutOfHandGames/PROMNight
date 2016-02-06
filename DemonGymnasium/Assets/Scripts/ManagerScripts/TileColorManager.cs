@@ -10,12 +10,15 @@ public class TileColorManager : MonoBehaviour {
     public static Color neutralTileColor = Color.white;
 
     Camera mainCamera;
+    Renderer mouseOverTile;
     bool colorValidTilesOn;
     List<Point2> validPoints;
+    UIManager uiManager;
 
     void Start()
     {
         colorAllTiles();
+        uiManager = GameObject.FindObjectOfType<UIManager>();
         mainCamera = GameObject.FindObjectOfType<Camera>();
     }
 
@@ -31,17 +34,26 @@ public class TileColorManager : MonoBehaviour {
 
     void highlightMouseTile()
     {
-        Tile tile = null;
-
+        Renderer tile = null;
+        if (mouseOverTile != null)
+        {
+            resetTileColor(mouseOverTile.transform.parent.GetComponent<Tile>());
+        }
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit))
+        if (uiManager.getActionPanelActive())
         {
-            tile = hit.collider.GetComponent<Tile>();
+            mouseOverTile = null;
+        }
+        else if (Physics.Raycast(ray, out hit))
+        {
+            tile = hit.collider.GetComponentInChildren<Renderer>();
+            mouseOverTile = tile;
             if (tile != null)
             {
-                tile.GetComponentInChildren<Renderer>().material.color = hoverTileColor;
+
+                tile.material.color = hoverTileColor;
             }
         }
     }
