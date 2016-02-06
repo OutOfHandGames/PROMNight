@@ -12,8 +12,9 @@ public class ScoreUI : MonoBehaviour {
     void Update()
     {
         int janitorScore = MapGenerator.currentTileTypes[Tile.JANITOR];
+        int demonScore = MapGenerator.currentTileTypes[Tile.DEMON];
 
-		currentScore.text = janitorScore + " : " + MapGenerator.currentTileTypes[Tile.DEMON];
+		currentScore.text = janitorScore + " : " + demonScore;
 
     }
 }

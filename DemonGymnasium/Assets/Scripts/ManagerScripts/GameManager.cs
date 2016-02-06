@@ -63,6 +63,11 @@ public class GameManager : MonoBehaviour {
     {
     }
 
+    public int getTurnsBeforeNextRound()
+    {
+        return turnsLeft;
+    }
+
     public void endGame(int idLoser)
     {
         if (idLoser == JANITOR)

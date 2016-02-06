@@ -103,7 +103,7 @@ public abstract class Actions : MonoBehaviour
         return tile.getCurrentTileType() != getEntity().entityType;
     }
 
-    public abstract void OnActionClicked();
+    public abstract void OnActionClicked(ActionManager actionManager);
 
     
 }

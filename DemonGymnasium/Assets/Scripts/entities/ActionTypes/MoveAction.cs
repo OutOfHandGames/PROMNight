@@ -30,7 +30,7 @@ public class MoveAction : Actions
         legalActions = new Point2[] { Point2.NORTH, Point2.SOUTH, Point2.EAST, Point2.WEST};
     }
 
-    public override void OnActionClicked()
+    public override void OnActionClicked(ActionManager actionManager)
     {
         findValidPositions();
     }

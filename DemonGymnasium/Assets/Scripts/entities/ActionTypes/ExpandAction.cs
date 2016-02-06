@@ -15,9 +15,10 @@ public class ExpandAction : Actions {
         legalActions = new Point2[] { Point2.NORTH, Point2.SOUTH, Point2.EAST, Point2.WEST, Point2.ZERO };
     }
 
-    public override void OnActionClicked()
+    public override void OnActionClicked(ActionManager actionManager)
     {
-        performAction(getEntity().getCurrentTile());
+        setActive(true);
+        actionManager.performAction(getEntity().getCurrentTile());
         
     }
 
@@ -51,6 +52,8 @@ public class ExpandAction : Actions {
             }
             tileAtPoint.setTileType(getEntity().entityType);
         }
+        MapGenerator.updateTileScore();
+        setActive(false);
         return true;
     }
 }

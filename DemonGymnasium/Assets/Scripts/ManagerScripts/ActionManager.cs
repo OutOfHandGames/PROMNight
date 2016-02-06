@@ -33,7 +33,8 @@ public class ActionManager : MonoBehaviour
     {
         if (currentActionSelected >= 0)
         {
-            performAction();
+            playerSelectManager.mouseClicked();
+            performAction(playerSelectManager.currentTileSelected);
         }
     }
 
@@ -41,31 +42,29 @@ public class ActionManager : MonoBehaviour
     {
         //print(playerSelectManager.currentCharacterSelected);
         Actions action = playerSelectManager.currentCharacterSelected.GetComponent<EntityActionManager>().actions[actionID];
-        action.OnActionClicked();
-        if (action.getActive())
-        {
-            currentActionSelected = actionID;
-            tileColorManager.colorValidSquares(action.getValidPosition());
-            currentEntity = playerSelectManager.currentCharacterSelected;
+        
+        currentActionSelected = actionID;
+        tileColorManager.colorValidSquares(action.getValidPosition());
+        currentEntity = playerSelectManager.currentCharacterSelected;
+        action.OnActionClicked(this);
 
-        }
-        else
-        {
-            currentActionSelected = -1;
-        }
+
+
     }
 
-    public void performAction()
+    public void performAction(Tile tileSelected)
     {
+        print(currentActionSelected);
         Actions action = currentEntity.GetComponent<EntityActionManager>().actions[currentActionSelected];
 
         tileColorManager.resetValidSquares(action.getValidPosition());
         if (currentActionSelected >= 0 && action.getActive())
         {
-            playerSelectManager.mouseClicked();
-            if (action.performAction(playerSelectManager.currentTileSelected))
+            //playerSelectManager.mouseClicked();
+            if (action.performAction(tileSelected))
             {
                 gameManager.performAction();
+                MapGenerator.updateTileScore();
             }
         }
         else

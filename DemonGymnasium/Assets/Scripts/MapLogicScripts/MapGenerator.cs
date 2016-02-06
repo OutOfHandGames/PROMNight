@@ -27,12 +27,14 @@ public class MapGenerator : MonoBehaviour {
 		monsters = new Entity[numMonsters];
 		players = new Entity[numPlayers];
 		generateMap();
-        updateTileScore();
+        
         BoardWidth = mapTiles.GetLength(0);
         BoardHeight = mapTiles.GetLength(1);
         GetComponent<TileColorManager>().enabled = true;
+
+        updateTileScore();
         //print(currentTileTypes[2]);
-	}
+    }
 
 	void generateMap() {
 		//int monsterCount = 0, playerCount = 0;
@@ -96,17 +98,21 @@ public class MapGenerator : MonoBehaviour {
 
     public static void updateTileScore()
     {
-        for (int k = 0; k < currentTileTypes.Length; k++)
+        resetCurrentTileCount(currentTileTypes);
+        for (int x = 0; x < BoardWidth; x++)
         {
-            currentTileTypes[k] = 0;
-        }
-        for (int i = 0; i < mapTiles.GetLength(0); i++)
-        {
-            for (int j = 0; j < mapTiles.GetLength(1); j++)
+            for (int y = 0; y < BoardHeight; y++)
             {
-
-                currentTileTypes[mapTiles[i, j].getCurrentTileType()]++;
+                currentTileTypes[MapGenerator.getTileAtPoint(new Point2(x, y)).getCurrentTileType()]++;
             }
+        }
+    }
+
+    static void resetCurrentTileCount(int[] count)
+    {
+        for (int i = 0; i < count.Length; i++)
+        {
+            count[i] = 0;
         }
     }
 

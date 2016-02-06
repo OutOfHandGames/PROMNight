@@ -15,7 +15,7 @@ public class AttackAction : Actions
     }
 
 
-    public override void OnActionClicked()
+    public override void OnActionClicked(ActionManager actionManager)
     {
         findValidPositions();
     }
