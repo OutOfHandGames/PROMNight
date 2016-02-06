@@ -23,7 +23,19 @@ public class ExpandAction : Actions {
 
     public override List<Point2> findValidPositions()
     {
+        foreach (Point2 p in legalActions)
+        {
+            Point2 checkPoint = getEntity().getCurrentTile().getLocation() + p;
 
+            if (!checkOutOfBoundsPoint(checkPoint))
+            {
+                Tile tileAtPoint = MapGenerator.getTileAtPoint(checkPoint);
+                if (!checkObstaclePresent(tileAtPoint))
+                {
+                    validPositions.Add(checkPoint);
+                }
+            }
+        }
         return validPositions;
     }
 

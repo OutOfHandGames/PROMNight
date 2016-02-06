@@ -10,7 +10,7 @@ public class AttackAction : Actions
 
     public override void initializeLegalActions()
     {
-        legalActions = new Point2[] { Point2.NORTH, Point2.NORTH * 2, Point2.SOUTH, Point2.SOUTH * 2, Point2.EAST, Point2.EAST * 2, Point2.WEST, Point2.WEST * 2 };
+        legalActions = new Point2[] { Point2.NORTH, Point2.SOUTH, Point2.EAST, Point2.WEST };
 
     }
 
@@ -27,13 +27,24 @@ public class AttackAction : Actions
         setActive(true);
         foreach (Point2 p in legalActions)
         {
-            Point2 checkPoint = origin + p;
-            if (!checkOutOfBoundsPoint(checkPoint))
+            Point2 checkPoint = getEntity().getCurrentTile().getLocation();
+            for (int i = 0; i < attackRange; i++)
             {
-                if (MapGenerator.getTileAtPoint(checkPoint).getCurrentTileType() != getEntity().entityType)
+                checkPoint += p;
+                if (checkOutOfBoundsPoint(checkPoint))
                 {
-                    validPositions.Add(checkPoint);
+                    break;
                 }
+                Tile tileAtPoint = MapGenerator.getTileAtPoint(checkPoint);
+                if (checkObstaclePresent(tileAtPoint))
+                {
+                    break;
+                }
+                if (checkFriendlyPresent(tileAtPoint))
+                {
+                    break;
+                }
+                validPositions.Add(checkPoint);
             }
         }
 
