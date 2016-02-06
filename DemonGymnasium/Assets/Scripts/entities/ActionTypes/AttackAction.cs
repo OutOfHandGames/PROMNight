@@ -65,6 +65,9 @@ public class AttackAction : Actions
                 Point2 direction = p - origin;
                 direction.normalizeValues();
                 Point2 checkPoint = origin;
+                GameObject obj = (GameObject)Instantiate(projectile, new Vector3(origin.x, 0, origin.y), new Quaternion());
+                obj.GetComponent<Projectile>().setGoalPosition(tileClicked.transform.position);
+
                 for (int i = 0; i < attackRange; i++)
                 {
                     checkPoint += direction;
