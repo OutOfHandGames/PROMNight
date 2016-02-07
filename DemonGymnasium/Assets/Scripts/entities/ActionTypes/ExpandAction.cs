@@ -5,11 +5,6 @@ using System.Collections.Generic;
 
 public class ExpandAction : Actions {
 
-
-    void Start()
-    {
-    }
-
     public override void initializeLegalActions()
     {
         legalActions = new Point2[] { Point2.NORTH, Point2.SOUTH, Point2.EAST, Point2.WEST, Point2.ZERO };
