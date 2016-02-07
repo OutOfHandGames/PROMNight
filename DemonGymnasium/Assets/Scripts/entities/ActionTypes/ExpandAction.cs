@@ -50,6 +50,7 @@ public class ExpandAction : Actions {
         MapGenerator.updateTileScore();
         setActive(false);
         setAnimationTrigger();
+        validPositions.Clear();
         return true;
     }
 }
