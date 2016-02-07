@@ -44,9 +44,10 @@ public class ActionManager : MonoBehaviour
         Actions action = playerSelectManager.currentCharacterSelected.GetComponent<EntityActionManager>().actions[actionID];
         
         currentActionSelected = actionID;
-        tileColorManager.colorValidSquares(action.getValidPosition());
+        
         currentEntity = playerSelectManager.currentCharacterSelected;
         action.OnActionClicked(this);
+        tileColorManager.colorValidSquares(action.getValidPosition());
 
 
 
@@ -54,11 +55,10 @@ public class ActionManager : MonoBehaviour
 
     public void performAction(Tile tileSelected)
     {
-        print(currentActionSelected);
         Actions action = currentEntity.GetComponent<EntityActionManager>().actions[currentActionSelected];
 
-        tileColorManager.resetValidSquares(action.getValidPosition());
-        if (currentActionSelected >= 0 && action.getActive())
+        tileColorManager.resetValidSquares();
+        if (tileSelected != null && currentActionSelected >= 0 && action.getActive())
         {
             //playerSelectManager.mouseClicked();
             if (action.performAction(tileSelected))

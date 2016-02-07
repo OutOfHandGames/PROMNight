@@ -53,6 +53,7 @@ public class AttackAction : Actions
 
     public override bool performAction(Tile tileClicked)
     {
+        
         Point2 clickPoint = tileClicked.getLocation();
         Point2 origin = getEntity().getCurrentTile().getLocation();
         setActive(false);
@@ -78,7 +79,7 @@ public class AttackAction : Actions
                         tileAtPoint.getCurrentEntity().takeDamage();
                     }
                 }
-                
+                setAnimationTrigger();
                 return true;
             }
         }

@@ -8,8 +8,14 @@ public abstract class Actions : MonoBehaviour
     public string actionName = "Action";
     public Point2[] legalActions;
     protected List<Point2> validPositions = new List<Point2>();//All valid options that the player can click on
+    Animator anim;
     bool actionActive;
     Entity entity;
+
+    protected virtual void Start()
+    {
+        anim = transform.parent.GetComponentInChildren<Animator>();
+    }
 
     public abstract bool performAction(Tile tileClicked);
 
@@ -105,5 +111,14 @@ public abstract class Actions : MonoBehaviour
 
     public abstract void OnActionClicked(ActionManager actionManager);
 
+    public void setAnimationTrigger()
+    {
+        anim.SetTrigger(actionName);
+    }
+
+    public void setAnimationBool(bool isActive)
+    {
+        anim.SetBool(actionName, isActive);
+    } 
     
 }

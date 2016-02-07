@@ -20,6 +20,8 @@ public class TileColorManager : MonoBehaviour {
         colorAllTiles();
         uiManager = GameObject.FindObjectOfType<UIManager>();
         mainCamera = GameObject.FindObjectOfType<Camera>();
+        validPoints = new List<Point2>();
+
     }
 
     void Update()
@@ -56,6 +58,14 @@ public class TileColorManager : MonoBehaviour {
                 tile.material.color = hoverTileColor;
             }
         }
+        else
+        {
+            if (mouseOverTile != null)
+            {
+                resetTileColor(mouseOverTile.transform.parent.GetComponent<Tile>());
+                mouseOverTile = null;
+            }
+        }
     }
 
     public void colorAllTiles()
@@ -71,6 +81,7 @@ public class TileColorManager : MonoBehaviour {
 
     public void colorValidSquares(List<Point2> validPoints)
     {
+        print(validPoints.Count);
         foreach (Point2 p in validPoints)
         {
             MapGenerator.getTileAtPoint(p).GetComponentInChildren<Renderer>().material.color = validTileSelection;
@@ -79,7 +90,7 @@ public class TileColorManager : MonoBehaviour {
         colorValidTilesOn = true;
     }
 
-    public void resetValidSquares(List<Point2> validPoints)
+    public void resetValidSquares()
     {
         foreach (Point2 p in validPoints)
         {

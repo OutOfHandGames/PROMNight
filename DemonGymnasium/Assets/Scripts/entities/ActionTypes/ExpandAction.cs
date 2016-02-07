@@ -54,6 +54,7 @@ public class ExpandAction : Actions {
         }
         MapGenerator.updateTileScore();
         setActive(false);
+        setAnimationTrigger();
         return true;
     }
 }

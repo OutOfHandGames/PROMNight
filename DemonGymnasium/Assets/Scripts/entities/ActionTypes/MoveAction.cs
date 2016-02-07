@@ -11,17 +11,19 @@ public class MoveAction : Actions
 
     void Update()
     {
+        setAnimationBool(isMoving);
         if (!isMoving)
         {
             return;
         }
 
         getEntity().transform.position = Vector3.MoveTowards(getEntity().transform.position, goalLocation, Time.deltaTime * movementSpeed);
+        if ((getEntity().transform.position - goalLocation).magnitude < .001f)
+        {
+            isMoving = false;
+        }
     }
 
-    void Start()
-    { 
-    }
 
     
 
