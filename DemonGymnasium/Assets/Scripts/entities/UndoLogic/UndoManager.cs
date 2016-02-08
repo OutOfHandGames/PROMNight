@@ -12,13 +12,6 @@ public class UndoManager : MonoBehaviour {
         gameManager = GetComponent<GameManager>();
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            onUndoClicked();
-        }
-    }
 
     public void finishTurn()
     {
