@@ -12,11 +12,13 @@ public class ActionManager : MonoBehaviour
     Entity currentEntity;
     PlayerSelectManager playerSelectManager;
     TileColorManager tileColorManager;
+    UndoManager undoManager;
 
     void Start()
     {
         playerSelectManager = GetComponent<PlayerSelectManager>();
         gameManager = GetComponent<GameManager>();
+        undoManager = GetComponent<UndoManager>();
         currentActionSelected = -1;
         tileColorManager = GetComponent<TileColorManager>();
     }
@@ -61,14 +63,17 @@ public class ActionManager : MonoBehaviour
         if (tileSelected != null && currentActionSelected >= 0 && action.getActive())
         {
             //playerSelectManager.mouseClicked();
-            if (action.performAction(tileSelected))
+            if (action.performAction(tileSelected, undoManager))
             {
+                undoManager.saveGameState();
+                undoManager.finishTurn();
                 gameManager.performAction();
                 MapGenerator.updateTileScore();
             }
         }
         else
         {
+            undoManager.resetCurrentTurnInfo();
             currentActionSelected = -1;
         }
 

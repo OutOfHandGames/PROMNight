@@ -51,9 +51,8 @@ public class AttackAction : Actions
         return validPositions;
     }
 
-    public override bool performAction(Tile tileClicked)
+    public override bool performAction(Tile tileClicked, UndoManager undoManager)
     {
-        
         Point2 clickPoint = tileClicked.getLocation();
         Point2 origin = getEntity().getCurrentTile().getLocation();
         setActive(false);
@@ -72,7 +71,12 @@ public class AttackAction : Actions
                 for (int i = 0; i < attackRange; i++)
                 {
                     checkPoint += direction;
+                    if (checkOutOfBoundsPoint(checkPoint))
+                    {
+                        break;
+                    }
                     Tile tileAtPoint = MapGenerator.getTileAtPoint(checkPoint);
+                    undoManager.addAffectedTile(tileAtPoint);
                     tileAtPoint.setTileType(getEntity().entityType);
                     if (checkEnemyPresent(tileAtPoint))
                     {

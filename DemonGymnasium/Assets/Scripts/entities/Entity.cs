@@ -54,7 +54,7 @@ public abstract class Entity : MonoBehaviour {
     {
         //TODO death animation
         currentTile.setEntity(null);
-        GameObject.Destroy(this.gameObject);
+        gameObject.SetActive(false);
     }
 
 	/**

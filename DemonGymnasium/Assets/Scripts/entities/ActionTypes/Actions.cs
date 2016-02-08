@@ -17,7 +17,7 @@ public abstract class Actions : MonoBehaviour
         anim = transform.parent.GetComponentInChildren<Animator>();
     }
 
-    public abstract bool performAction(Tile tileClicked);
+    public abstract bool performAction(Tile tileClicked, UndoManager undoManager);
 
     public abstract void initializeLegalActions();
 
@@ -120,5 +120,7 @@ public abstract class Actions : MonoBehaviour
     {
         anim.SetBool(actionName, isActive);
     } 
+
+   
     
 }

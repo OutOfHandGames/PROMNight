@@ -25,10 +25,7 @@ public class Projectile : MonoBehaviour {
     void Update()
     {
         transform.Rotate(0, 0, rotationSpeed);
-        if (goalPosition == null)
-        {
-            return;
-        }
+        
         transform.position = Vector3.MoveTowards(transform.position, goalPosition, Time.deltaTime * projectileSpeed);
         checkDestroy();
     }

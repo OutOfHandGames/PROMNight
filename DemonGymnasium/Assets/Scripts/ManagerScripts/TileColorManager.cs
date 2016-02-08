@@ -80,8 +80,7 @@ public class TileColorManager : MonoBehaviour {
     }
 
     public void colorValidSquares(List<Point2> validPoints)
-    {
-        print(validPoints.Count);
+    { 
         foreach (Point2 p in validPoints)
         {
             MapGenerator.getTileAtPoint(p).GetComponentInChildren<Renderer>().material.color = validTileSelection;

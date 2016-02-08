@@ -82,12 +82,14 @@ public class MoveAction : Actions
         return validPositions;
     }
 
-    public override bool performAction(Tile tileClicked)
+    public override bool performAction(Tile tileClicked, UndoManager undoManager)
     {
         foreach (Point2 p in validPositions)
         {
             if (tileClicked.getLocation() == p)
             {
+                undoManager.addAffectedTile(getEntity().getCurrentTile());
+                undoManager.addAffectedTile(tileClicked);
                 goalLocation = new Vector3(p.x, 0, p.y);
                 tileClicked.setEntity(getEntity());
                 isMoving = true;

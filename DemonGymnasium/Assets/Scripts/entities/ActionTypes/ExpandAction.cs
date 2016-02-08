@@ -35,12 +35,13 @@ public class ExpandAction : Actions {
         return validPositions;
     }
 
-    public override bool performAction(Tile tileSelected)
+    public override bool performAction(Tile tileSelected, UndoManager undoManager)
     {
         findValidPositions();
         foreach (Point2 p in validPositions)
         {
             Tile tileAtPoint = MapGenerator.getTileAtPoint(p);
+            undoManager.addAffectedTile(tileAtPoint);
             if (checkEnemyPresent(tileAtPoint))
             {
                 tileAtPoint.getCurrentEntity().takeDamage();

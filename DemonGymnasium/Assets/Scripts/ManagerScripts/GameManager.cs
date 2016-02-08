@@ -77,6 +77,11 @@ public class GameManager : MonoBehaviour {
         uiManager.GameEnds(JANITOR);
     }
 
+    public void setTurnsLeft(int turnsLeft)
+    {
+        this.turnsLeft = turnsLeft;
+    }
+
    
 
     void changeTurns()
