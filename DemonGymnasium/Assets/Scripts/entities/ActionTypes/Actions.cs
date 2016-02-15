@@ -21,6 +21,9 @@ public abstract class Actions : MonoBehaviour
 
     public abstract void initializeLegalActions();
 
+    public abstract List<Point2> getAffectedTiles();
+
+
     public void setEntity(Entity entitySelected)
     {
         this.entity = entitySelected;
@@ -43,7 +46,7 @@ public abstract class Actions : MonoBehaviour
 
     //public abstract void setValidPositions();
 
-    public abstract List<Point2> findValidPositions();
+    public abstract List<Point2> findValidPositions(Point2 originPosition);
 
     public List<Point2> getValidPosition()
     {

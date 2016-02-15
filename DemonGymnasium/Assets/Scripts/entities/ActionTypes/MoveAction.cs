@@ -25,7 +25,10 @@ public class MoveAction : Actions
     }
 
 
-    
+    public override List<Point2> getAffectedTiles()
+    {
+        return null;
+    }
 
     public override void initializeLegalActions()
     {
@@ -34,13 +37,13 @@ public class MoveAction : Actions
 
     public override void OnActionClicked(ActionManager actionManager)
     {
-        findValidPositions();
+        findValidPositions(getEntity().getCurrentTile().getLocation());
     }
 
-    public override List<Point2> findValidPositions()
+    public override List<Point2> findValidPositions(Point2 originPoint)
     {
         validPositions.Clear();
-        Point2 o = getEntity().getCurrentTile().getLocation();
+        Point2 o = originPoint;
         foreach (Point2 direction in legalActions)
         {
             Point2 checkPosition = o + direction;
@@ -60,7 +63,7 @@ public class MoveAction : Actions
                 {
                     break;
                 }
-                if (tileAtPoint.getCurrentTileType() == Tile.NEUTRAL && tileAtPoint.getLocation() - direction != getEntity().getCurrentTile().getLocation())
+                if (tileAtPoint.getCurrentTileType() == Tile.NEUTRAL && tileAtPoint.getLocation() - direction != originPoint)
                 {
                     break;
                 }
@@ -70,7 +73,7 @@ public class MoveAction : Actions
                 {
                     break;
                 }
-                if (getEntity().getCurrentTile().getCurrentTileType() == Tile.NEUTRAL)//Checks if player is on a neutral tile. In which case they can't slide
+                if (MapGenerator.getTileAtPoint(originPoint).currentTileType == Tile.NEUTRAL)//Checks if player is on a neutral tile. In which case they can't slide
                 {
                     break;
                 }
