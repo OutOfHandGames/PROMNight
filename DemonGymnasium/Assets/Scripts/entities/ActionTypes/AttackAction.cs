@@ -17,13 +17,17 @@ public class AttackAction : Actions
 
     public override void OnActionClicked(ActionManager actionManager)
     {
-        findValidPositions();
+        findValidPositions(getEntity().getCurrentTile().getLocation());
     }
 
-    public override List<Point2> findValidPositions()
+    public override List<Point2> getAffectedTiles()
+    {
+        return null;
+    }
+
+    public override List<Point2> findValidPositions(Point2 origin)
     {
         validPositions.Clear();
-        Point2 origin = getEntity().getCurrentTile().getLocation();
         setActive(true);
         foreach (Point2 p in legalActions)
         {

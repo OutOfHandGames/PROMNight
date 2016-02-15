@@ -17,7 +17,12 @@ public class ExpandAction : Actions {
         
     }
 
-    public override List<Point2> findValidPositions()
+    public override List<Point2> getAffectedTiles()
+    {
+        return null;
+    }
+
+    public override List<Point2> findValidPositions(Point2 origin)
     {
         foreach (Point2 p in legalActions)
         {
@@ -37,7 +42,7 @@ public class ExpandAction : Actions {
 
     public override bool performAction(Tile tileSelected, UndoManager undoManager)
     {
-        findValidPositions();
+        findValidPositions(getEntity().getCurrentTile().getLocation());
         foreach (Point2 p in validPositions)
         {
             Tile tileAtPoint = MapGenerator.getTileAtPoint(p);
