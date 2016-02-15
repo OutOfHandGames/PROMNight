@@ -16,13 +16,21 @@ public class TeamPanel : MonoBehaviour {
     public Text APText;
     public Image[] actionPoints = new Image[4];
 
+	public Text kingNum;
+	public Text minionNum;
+
+
+
     public Sprite JanitorLogo;
     public Sprite DemonLogo;
 
     public Sprite ActionPowerText;
 
     public Sprite kingIcon;
-    public Sprite minionIcon;
+    public Sprite janitorIcon;
+
+	public Sprite demonKingIcon;
+	public Sprite demonIcon;
 
     public Sprite teamBackground;
     public Sprite actionPointJanitor;
@@ -30,7 +38,7 @@ public class TeamPanel : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        SetupUI();
+		SetupUI(teamNum);
 	}
 	
 	// Update is called once per frame
@@ -38,9 +46,38 @@ public class TeamPanel : MonoBehaviour {
         HandleHighlight();
 	}
 
-    void SetupUI()
-    {
 
+	/// <summary>
+	/// Updates the number of minions and kings by turn. Call this method when a turn ends
+	/// </summary>
+	void UpdateByTurn(int minionNum, int kingNum, int teamNum){
+		if(this.teamNum == teamNum){
+			this.minionNum.text = "x" + minionNum;
+			this.kingNum.text = "x" + kingNum;
+		}
+	}
+
+	void SetupUI(int teamID)
+    {
+		if (teamID == 0) {
+			TeamLogoImage.sprite = JanitorLogo;
+			KingIconImage.sprite = kingIcon;
+			MinionIconImage.sprite = janitorIcon;
+			APText.color = Color.blue;
+			for(int i = 0; i < actionPoints.Length; i++){
+				actionPoints [i].sprite = actionPointJanitor;
+			}
+		}
+		else {
+			TeamLogoImage.sprite = DemonLogo;
+			KingIconImage.sprite = demonKingIcon;
+			MinionIconImage.sprite = demonIcon;
+			APText.color = Color.red;
+			for(int i = 0; i < actionPoints.Length; i++){
+				actionPoints [i].sprite = actionPointDemon;
+			}
+		}
+			
     }
 
     void HandleHighlight()
