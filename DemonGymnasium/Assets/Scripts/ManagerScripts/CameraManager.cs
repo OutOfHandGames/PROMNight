@@ -10,6 +10,9 @@ public class CameraManager : MonoBehaviour {
     public float movementSpeed;
     public float rotationSpeed;
 
+    public float cameraDelayShift = 1;
+    float cameraDelayShiftTimer;
+
     bool cameraInMotion;
     float cameraMovementTimer;
     GameManager gameManager;
@@ -38,8 +41,17 @@ public class CameraManager : MonoBehaviour {
             mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, goalRotation, Time.deltaTime * rotationSpeed);
 
         }
+        else if (cameraInMotion && cameraDelayShiftTimer > 0)
+        {
+            cameraDelayShiftTimer = Mathf.MoveTowards(cameraDelayShiftTimer, 0, Time.deltaTime);
+        }
+        else if (cameraInMotion)
+        {
+            shiftCamera(gameManager.currentTurn);
+        }
         else
         {
+            cameraInMotion = false;
             float hInput = Input.GetAxisRaw("Horizontal");
             float vInput = Input.GetAxisRaw("Vertical");
 
@@ -58,6 +70,12 @@ public class CameraManager : MonoBehaviour {
         goalRotation = cameraRotations[playerTurn];
         cameraInMotion = true;
         cameraMovementTimer = cameraMovementTime;
+    }
+
+    public void shiftCameraDelay(int playerTurn)
+    {
+        cameraDelayShiftTimer = cameraDelayShift;
+        cameraInMotion = true;
     }
 
     public bool getCameraInMotion()

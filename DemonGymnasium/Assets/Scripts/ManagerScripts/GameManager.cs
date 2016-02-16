@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour {
         {
             currentTurn = JANITOR;
         }
-        cameraManager.shiftCamera(currentTurn);
+        cameraManager.shiftCameraDelay(currentTurn);
     }
 
 
