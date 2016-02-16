@@ -51,6 +51,8 @@ public class SaveGame : MonoBehaviour {
                 saveGameString += ",";
             }
         }
+
+        PlayerPrefs.SetString("saveGame", saveGameString);
     }
 
     public void loadGame()

@@ -31,14 +31,20 @@ public class AIStateMachine : MonoBehaviour {
         moveInfoList.Clear();
         setAllCurrentEntities();
 
-        MoveInfo mInfo = null;
+        
         for (int i = 0; i < gameManger.turnsPerPlayer; i++)
         {
-            mInfo = new MoveInfo();
-            mInfo.entity = currentEntityList.ToArray()[Random.Range(0, currentEntityList.Count)];
+            findValidMove();
 
         }
         
+    }
+
+    MoveInfo findValidMove()
+    {
+        MoveInfo mInfo = new MoveInfo();
+
+        return mInfo;
     }
 
 }

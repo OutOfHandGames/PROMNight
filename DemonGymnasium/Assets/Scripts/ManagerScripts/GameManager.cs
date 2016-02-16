@@ -4,6 +4,10 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour {
     public const int JANITOR = 0;
     public const int DEMON = 1;
+
+    private const int KING = 0;
+    private const int PAWN = 1;
+
 	public int turnsCompleted;
 
     public int turnsPerPlayer;
@@ -17,10 +21,14 @@ public class GameManager : MonoBehaviour {
     int winner = -1;
     CameraManager cameraManager;
     UIManager uiManager;
+    List<Entity>[] janitorEntities = new List<Entity>[2];
+    List<Entity>[] demonEntities = new List<Entity>[2];
+
 
 
     void Start()
     {
+        initializeEntityLists();
 		turnsCompleted = 0;
         gameManager = this;
         currentPlayers = new LinkedList<Entity>();
@@ -30,7 +38,84 @@ public class GameManager : MonoBehaviour {
         turnsLeft = turnsPerPlayer;
     }
 
-    public bool getPlayerTurn()
+    void initializeEntityLists()
+    {
+        for (int i = 0; i < janitorEntities.Length; i++)
+        {
+            janitorEntities[i] = new List<Entity>();
+            demonEntities[i] = new List<Entity>();
+        }
+    }
+
+    public void clearEntityLists()
+    {
+        for (int i = 0; i < janitorEntities.Length; i++)
+        {
+            janitorEntities[i].Clear();
+            demonEntities[i].Clear();
+        }
+    }
+
+    public void updateEntitiesPresent()
+    {
+        Entity[] allEntities = GameObject.FindObjectsOfType<Entity>();
+        clearEntityLists();
+
+        foreach (Entity e in allEntities)
+        {
+            switch (e.entityType)
+            {
+                case JANITOR:
+                    if (e is King)
+                    {
+                        janitorEntities[KING].Add(e);
+                    }
+                    else
+                    {
+                        janitorEntities[PAWN].Add(e);
+                    }
+                    break;
+                case DEMON:
+                    if (e is King)
+                    {
+                        demonEntities[KING].Add(e);
+                    }
+                    else
+                    {
+                        demonEntities[PAWN].Add(e);
+                    }
+                    break;
+            }
+        }
+    }
+
+    public int getKingCount(int side)
+    {
+        switch(side)
+        {
+            case JANITOR:
+                return janitorEntities[KING].Count;
+            case DEMON:
+                return demonEntities[KING].Count;
+        }
+
+        return -1;
+    }
+
+    public int getPawnCount(int side)
+    {
+        switch (side)
+        {
+            case JANITOR:
+                return janitorEntities[PAWN].Count;
+            case DEMON:
+                return demonEntities[PAWN].Count;
+        }
+
+        return -1;
+    }
+
+    public bool gebPlayerTurn()
     {
         return currentTurn == JANITOR;
     }
@@ -57,6 +142,8 @@ public class GameManager : MonoBehaviour {
         {
             changeTurns();
         }
+
+        updateEntitiesPresent();
     }
 
     void intializeMinionSetUp()
