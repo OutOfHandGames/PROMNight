@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour {
         cameraManager = GetComponent<CameraManager>();
         uiManager = GameObject.FindObjectOfType<UIManager>();
         turnsLeft = turnsPerPlayer;
+        updateEntitiesPresent();
     }
 
     void initializeEntityLists()
@@ -144,10 +145,6 @@ public class GameManager : MonoBehaviour {
         }
 
         updateEntitiesPresent();
-    }
-
-    void intializeMinionSetUp()
-    {
     }
 
     public int getTurnsBeforeNextRound()

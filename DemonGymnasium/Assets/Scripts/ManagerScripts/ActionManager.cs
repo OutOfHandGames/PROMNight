@@ -79,4 +79,9 @@ public class ActionManager : MonoBehaviour
 
     }
 
+    public void setCurrentEntity(Entity currentEntity)
+    {
+        this.currentEntity = currentEntity;
+    }
+
 }

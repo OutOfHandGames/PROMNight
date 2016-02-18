@@ -19,6 +19,7 @@ public class ExpandAction : Actions {
 
     public override List<Point2> getAffectedTiles()
     {
+
         return null;
     }
 
@@ -26,7 +27,7 @@ public class ExpandAction : Actions {
     {
         foreach (Point2 p in legalActions)
         {
-            Point2 checkPoint = getEntity().getCurrentTile().getLocation() + p;
+            Point2 checkPoint = origin + p;
 
             if (!checkOutOfBoundsPoint(checkPoint))
             {

@@ -19,11 +19,14 @@ public abstract class Entity : MonoBehaviour {
 	private bool hasPerformedAction;//true when this monster has attacked this turn
 	public bool isPlayer;//true- player, false- monster
 
+    EntityActionManager entityActionManager;
+
 	// Use this for initialization
 	public void Start () {
 		isMoving = false;
 		target = Vector3.zero;
 		hasPerformedAction = false;
+        entityActionManager = GetComponent<EntityActionManager>();
 	}
 	
 	// Update is called once per frame
@@ -39,6 +42,11 @@ public abstract class Entity : MonoBehaviour {
 			}
 		}
 	}
+
+    public EntityActionManager getEntityActionManager()
+    {
+        return entityActionManager;
+    }
 
     public bool getIsPlayer()
     {

@@ -11,6 +11,12 @@ public class CameraManager : MonoBehaviour {
     public float rotationSpeed;
 
     public float cameraDelayShift = 1;
+
+    public float minZoom = -10f;
+    public float maxZoom = 10f;
+
+    float currentCameraZoom;
+
     float cameraDelayShiftTimer;
 
     bool cameraInMotion;
@@ -34,20 +40,25 @@ public class CameraManager : MonoBehaviour {
 
     void Update()
     {
-        if (cameraMovementTimer > 0)
+        if (cameraInMotion && cameraDelayShiftTimer > 0)
         {
+            cameraDelayShiftTimer = Mathf.MoveTowards(cameraDelayShiftTimer, 0, Time.deltaTime);
+            cameraMovementTimer = 0;
+            //print(2);
+            //print(cameraMovementTimer);
+        }
+        else if (cameraMovementTimer > 0)
+        {
+            //print(2);
+            cameraInMotion = false;
             cameraMovementTimer = Mathf.MoveTowards(cameraMovementTimer, 0, Time.deltaTime);
             mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, goalPoistion, Time.deltaTime * movementSpeed);
             mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, goalRotation, Time.deltaTime * rotationSpeed);
-
-        }
-        else if (cameraInMotion && cameraDelayShiftTimer > 0)
-        {
-            cameraDelayShiftTimer = Mathf.MoveTowards(cameraDelayShiftTimer, 0, Time.deltaTime);
         }
         else if (cameraInMotion)
         {
             shiftCamera(gameManager.currentTurn);
+            //print(3);
         }
         else
         {
@@ -58,10 +69,28 @@ public class CameraManager : MonoBehaviour {
             Vector3 fwd = mainCamera.transform.forward - Vector3.up * mainCamera.transform.forward.y;
             Vector3 right = mainCamera.transform.right - Vector3.up * mainCamera.transform.right.y;
             goalPoistion = mainCamera.transform.position + fwd * vInput * 100 + right * hInput * 100;
-
+            updateCameraZoom();
             mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, goalPoistion, Time.deltaTime * movementSpeed);
         }
+
         
+    }
+
+    public void updateCameraZoom()
+    {
+        float zInput = Input.GetAxisRaw("Mouse ScrollWheel");
+        //print("I am here");
+        currentCameraZoom += zInput;
+        if (currentCameraZoom > maxZoom)
+        {
+            currentCameraZoom = maxZoom;
+        }
+        if (currentCameraZoom < minZoom)
+        {
+            currentCameraZoom = minZoom;
+        }
+
+        mainCamera.orthographicSize = currentCameraZoom;
     }
 
     public void shiftCamera(int playerTurn)
@@ -82,4 +111,6 @@ public class CameraManager : MonoBehaviour {
     {
         return cameraMovementTimer > 0;
     }
+
+    
 }

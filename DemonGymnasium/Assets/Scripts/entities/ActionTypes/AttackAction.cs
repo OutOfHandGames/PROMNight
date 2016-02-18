@@ -31,7 +31,7 @@ public class AttackAction : Actions
         setActive(true);
         foreach (Point2 p in legalActions)
         {
-            Point2 checkPoint = getEntity().getCurrentTile().getLocation();
+            Point2 checkPoint = origin;
             for (int i = 0; i < attackRange; i++)
             {
                 checkPoint += p;
@@ -51,7 +51,6 @@ public class AttackAction : Actions
                 validPositions.Add(checkPoint);
             }
         }
-
         return validPositions;
     }
 
