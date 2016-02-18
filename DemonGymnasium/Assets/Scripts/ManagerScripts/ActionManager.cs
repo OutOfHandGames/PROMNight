@@ -38,16 +38,20 @@ public class ActionManager : MonoBehaviour
             playerSelectManager.mouseClicked();
             performAction(playerSelectManager.currentTileSelected);
         }
+        if (gameManager.getIsHumanPlayer())
+        {
+            playerSelectManager.mouseClicked();
+            currentEntity = playerSelectManager.currentCharacterSelected;
+        }
     }
 
     public void actionSelected(int actionID)
     {
         //print(playerSelectManager.currentCharacterSelected);
-        Actions action = playerSelectManager.currentCharacterSelected.GetComponent<EntityActionManager>().actions[actionID];
+        Actions action = currentEntity.GetComponent<EntityActionManager>().actions[actionID];
         
         currentActionSelected = actionID;
         
-        currentEntity = playerSelectManager.currentCharacterSelected;
         action.OnActionClicked(this);
         tileColorManager.colorValidSquares(action.getValidPosition());
 
@@ -57,6 +61,10 @@ public class ActionManager : MonoBehaviour
 
     public void performAction(Tile tileSelected)
     {
+        if (currentActionSelected < 0)
+        {
+            return;
+        }
         Actions action = currentEntity.GetComponent<EntityActionManager>().actions[currentActionSelected];
         tileColorManager.resetValidSquares();
         if (tileSelected != null && currentActionSelected >= 0 && action.getActive())
@@ -73,8 +81,9 @@ public class ActionManager : MonoBehaviour
         else
         {
             undoManager.resetCurrentTurnInfo();
-            currentActionSelected = -1;
         }
+        currentActionSelected = -1;
+
 
     }
 

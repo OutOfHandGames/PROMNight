@@ -38,7 +38,7 @@ public class AIStateMachine : MonoBehaviour {
         {
             moveInfoList.Add(findValidMove());
         }
-        
+        performActions();
     }
 
     void performActions()
@@ -46,6 +46,7 @@ public class AIStateMachine : MonoBehaviour {
         foreach (MoveInfo mInfo in moveInfoList)
         {
             actionManager.setCurrentEntity(mInfo.entity);
+            print(mInfo.actionSelected);
             actionManager.actionSelected(mInfo.actionSelected);
             actionManager.performAction(MapGenerator.getTileAtPoint(mInfo.tilePositionSelected));
         }

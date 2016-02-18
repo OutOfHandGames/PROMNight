@@ -16,7 +16,7 @@ public class UndoManager : MonoBehaviour {
     public void finishTurn()
     {
         turnStack.AddLast(currentTurnInfo);
-        print(turnStack.Count);
+        //print(turnStack.Count);
         resetCurrentTurnInfo();
     }
 
@@ -32,10 +32,8 @@ public class UndoManager : MonoBehaviour {
 
     public void onUndoClicked()
     {
-        print(turnStack.Count);
         if (turnStack.Count <= 0)
         {
-            print("This makes it super easy");
             return;
         }
         TurnInfo turnInfo = turnStack.Last.Value;

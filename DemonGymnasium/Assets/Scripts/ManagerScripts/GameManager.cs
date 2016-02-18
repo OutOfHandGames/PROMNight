@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviour {
     List<Entity>[] demonEntities = new List<Entity>[2];
 
 
+    AIStateMachine aiStateMachine;
+
+
 
     void Start()
     {
@@ -37,6 +40,7 @@ public class GameManager : MonoBehaviour {
         cameraManager = GetComponent<CameraManager>();
         undoManager = GetComponent<UndoManager>();
         uiManager = GameObject.FindObjectOfType<UIManager>();
+        aiStateMachine = GameObject.FindObjectOfType<AIStateMachine>();
         turnsLeft = turnsPerPlayer;
         updateEntitiesPresent();
     }
@@ -186,6 +190,10 @@ public class GameManager : MonoBehaviour {
             currentTurn = JANITOR;
         }
         cameraManager.shiftCameraDelay(currentTurn);
+        if (currentTurn == DEMON)
+        {
+            aiStateMachine.selectRandomActions();
+        }
     }
 
 
@@ -199,4 +207,9 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 	}
+
+    public bool getIsHumanPlayer()
+    {
+        return currentTurn == JANITOR;
+    }
 }
