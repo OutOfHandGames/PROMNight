@@ -21,6 +21,7 @@ public class CameraManager : MonoBehaviour {
 
     bool cameraInMotion;
     float cameraMovementTimer;
+    float defaultCameraZoom;
     GameManager gameManager;
     Vector3 goalPoistion;
     Quaternion goalRotation;
@@ -36,6 +37,8 @@ public class CameraManager : MonoBehaviour {
         cameraPositions = new Vector3[] { janitorCamera.position, demonCamera.position };
         cameraRotations = new Quaternion[] { janitorCamera.rotation, demonCamera.rotation };
         shiftCamera(gameManager.currentTurn);
+        defaultCameraZoom = mainCamera.orthographicSize;
+        currentCameraZoom = defaultCameraZoom;
     }
 
     void Update()

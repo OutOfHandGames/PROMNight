@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour {
     int turnsLeft;
     int winner = -1;
     CameraManager cameraManager;
+    UndoManager undoManager;
     UIManager uiManager;
     List<Entity>[] janitorEntities = new List<Entity>[2];
     List<Entity>[] demonEntities = new List<Entity>[2];
@@ -34,6 +35,7 @@ public class GameManager : MonoBehaviour {
         currentPlayers = new LinkedList<Entity>();
         currentTurn = JANITOR;
         cameraManager = GetComponent<CameraManager>();
+        undoManager = GetComponent<UndoManager>();
         uiManager = GameObject.FindObjectOfType<UIManager>();
         turnsLeft = turnsPerPlayer;
         updateEntitiesPresent();
@@ -143,8 +145,11 @@ public class GameManager : MonoBehaviour {
         {
             changeTurns();
         }
-
+        
         updateEntitiesPresent();
+
+
+       // undoManager.finishTurn();
     }
 
     public int getTurnsBeforeNextRound()

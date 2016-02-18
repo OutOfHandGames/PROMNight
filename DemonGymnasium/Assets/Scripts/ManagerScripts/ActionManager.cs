@@ -58,7 +58,6 @@ public class ActionManager : MonoBehaviour
     public void performAction(Tile tileSelected)
     {
         Actions action = currentEntity.GetComponent<EntityActionManager>().actions[currentActionSelected];
-
         tileColorManager.resetValidSquares();
         if (tileSelected != null && currentActionSelected >= 0 && action.getActive())
         {
