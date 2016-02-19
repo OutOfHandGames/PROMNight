@@ -34,22 +34,20 @@ public class AIStateMachine : MonoBehaviour {
         setAllCurrentEntities();
         
         
-        for (int i = 0; i < gameManger.turnsPerPlayer; i++)
+        while (gameManger.currentTurn == aiTeam)
         {
-            moveInfoList.Add(findValidMove());
+            performActions(findValidMove());
         }
-        performActions();
+        
     }
 
-    void performActions()
+    void performActions(MoveInfo mInfo)
     {
-        foreach (MoveInfo mInfo in moveInfoList)
-        {
-            actionManager.setCurrentEntity(mInfo.entity);
-            print(mInfo.actionSelected);
-            actionManager.actionSelected(mInfo.actionSelected);
-            actionManager.performAction(MapGenerator.getTileAtPoint(mInfo.tilePositionSelected));
-        }
+        actionManager.setCurrentEntity(mInfo.entity);
+        print(mInfo.actionSelected);
+        actionManager.actionSelected(mInfo.actionSelected);
+        actionManager.performAction(MapGenerator.getTileAtPoint(mInfo.tilePositionSelected));
+        
     }
 
     MoveInfo findValidMove()
