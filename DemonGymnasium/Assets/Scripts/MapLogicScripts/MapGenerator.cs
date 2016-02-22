@@ -93,7 +93,12 @@ public class MapGenerator : MonoBehaviour {
     public static Tile getTileAtPoint(Point2 p)
     {
         //print(p);
-        return mapTiles[p.x, p.y];
+        return getTileAtPoint(p.x, p.y);
+    }
+
+    public static Tile getTileAtPoint(int x, int y)
+    {
+        return mapTiles[x, y];
     }
 
     public static void updateTileScore()

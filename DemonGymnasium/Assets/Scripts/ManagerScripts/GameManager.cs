@@ -122,6 +122,19 @@ public class GameManager : MonoBehaviour {
         return -1;
     }
 
+    public List<Entity>[] getAllEntitiesTeam(int team)
+    {
+        if (team == JANITOR)
+        {
+            return janitorEntities;
+        }
+        else if(team == DEMON)
+        {
+            return demonEntities;
+        }
+        return null;
+    }
+
     public bool gebPlayerTurn()
     {
         return currentTurn == JANITOR;

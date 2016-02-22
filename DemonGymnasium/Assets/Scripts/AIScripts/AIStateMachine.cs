@@ -18,10 +18,10 @@ public class AIStateMachine : MonoBehaviour {
     public void setAllCurrentEntities()
     {
         currentEntityList.Clear();
-        Entity[] allEntities = GameObject.FindObjectsOfType<Entity>();
-        foreach (Entity e in allEntities)
+        List<Entity>[] aiEntityList = gameManger.getAllEntitiesTeam(aiTeam);
+        foreach (List<Entity> l in aiEntityList)
         {
-            if (e.entityType == aiTeam)
+            foreach (Entity e in l)
             {
                 currentEntityList.Add(e);
             }
@@ -30,7 +30,7 @@ public class AIStateMachine : MonoBehaviour {
 
     public void selectRandomActions()
     {
-        moveInfoList.Clear();
+        //moveInfoList.Clear();
         setAllCurrentEntities();
         
         
@@ -39,6 +39,11 @@ public class AIStateMachine : MonoBehaviour {
             performActions(findValidMove());
         }
         
+    }
+
+    public void selectBestAction(int depth)
+    {
+
     }
 
     void performActions(MoveInfo mInfo)
