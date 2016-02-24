@@ -44,7 +44,8 @@ public class TeamPanel : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         HandleHighlight();
-	}
+        HandleEntityNumbers();
+    }
 
 
 	/// <summary>
@@ -78,6 +79,12 @@ public class TeamPanel : MonoBehaviour {
 			}
 		}
 			
+    }
+
+    void HandleEntityNumbers()
+    {
+        kingNum.text = "*" + GameManager.getKingCount(teamNum).ToString();
+        minionNum.text = "*" + GameManager.getPawnCount(teamNum).ToString();
     }
 
     void HandleHighlight()

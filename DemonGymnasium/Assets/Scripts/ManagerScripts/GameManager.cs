@@ -22,8 +22,8 @@ public class GameManager : MonoBehaviour {
     CameraManager cameraManager;
     UndoManager undoManager;
     UIManager uiManager;
-    List<Entity>[] janitorEntities = new List<Entity>[2];
-    List<Entity>[] demonEntities = new List<Entity>[2];
+    static List<Entity>[] janitorEntities = new List<Entity>[2];
+    static List<Entity>[] demonEntities = new List<Entity>[2];
 
 
     AIStateMachine aiStateMachine;
@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public int getKingCount(int side)
+    public static int getKingCount(int side)
     {
         switch(side)
         {
@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour {
         return -1;
     }
 
-    public int getPawnCount(int side)
+    public static int getPawnCount(int side)
     {
         switch (side)
         {

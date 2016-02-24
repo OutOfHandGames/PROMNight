@@ -48,6 +48,7 @@ public class PlayerSelectManager : MonoBehaviour {
                         currentCharacterSelected = tile.getCurrentEntity();
                         setHighlightColor(tileEntity);
                         tileEntity.GetComponentInChildren<SpriteRenderer>().color = Color.green;
+
                         playerModal.SetUIPos(tileEntity.transform);
                         playerModal.Enable();
                     }

@@ -31,16 +31,16 @@ public class UIManager : MonoBehaviour {
 	void Update () {
 		switch(currentState){
 
-		case UISTATE.Ingame:
-			StartIngame ();
+		    case UISTATE.Ingame:
+			    StartIngame ();
 
-			break;
+			    break;
 
 
-		case UISTATE.Endgame:
-			StartEndgame ();
+		    case UISTATE.Endgame:
+			    StartEndgame ();
 
-			break;
+			    break;
 		}
 	}
 
