@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class AIStateMachine : MonoBehaviour {
     public int aiTeam = Tile.DEMON;
+    public int enemyTeam = Tile.JANITOR;
     public List<MoveInfo> moveInfoList = new List<MoveInfo>();
 
     List<Entity> currentEntityList = new List<Entity>();
@@ -78,4 +79,14 @@ public class AIStateMachine : MonoBehaviour {
         
     }
 
+
+    public GameManager getGameManager()
+    {
+        return gameManger;
+    }
+
+    public ActionManager getActionManager()
+    {
+        return actionManager;
+    }
 }

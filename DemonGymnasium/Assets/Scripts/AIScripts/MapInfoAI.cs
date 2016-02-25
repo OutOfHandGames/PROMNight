@@ -64,25 +64,52 @@ public class MapInfoAI : MonoBehaviour {
     }
 
 
-    public void updateMapWeights(Tile tileAtPoint)
+    public float getWeightAtLocation (Point2 tilePosition)
     {
-        Point2 tileLocation = tileAtPoint.getLocation();
-        if (tileAtPoint.getCurrentEntity() == null)
+        int tileValue = mapInfo[tilePosition.x, tilePosition.y];
+        int weight = 0;
+        if (tileValue == aiStateMachine.aiTeam)
         {
-            if (tileAtPoint.currentTileType == aiStateMachine.aiTeam)
-            {
-                mapWeights[tileLocation.x, tileLocation.y] = 0;
-            }
-            else
-            {
-                mapWeights[tileLocation.x, tileLocation.y] = 2;
-            }
+            weight += 0;
+        }
+        else if (tileValue == aiStateMachine.enemyTeam)
+        {
+            weight += 3;
+        }
+        else if (tileValue == NEUTRAL)
+        {
+            weight += 1;
+        }
+        
+        if (tileValue == getEnemyID("King"))
+        {
+            weight += 50;
+        }
+        else if (tileValue == getEnemyID("Pawn"))
+        {
+            weight += 15;
+        }
 
-        }
-        else
+
+        return weight;
+    }
+
+    int getEnemyID(string type)
+    {
+        switch (type)
         {
-            Entity tileEntity = tileAtPoint.getCurrentEntity();
-            mapWeights[tileLocation.x, tileLocation.y] = 0;//fill in the blanks here
+            case "King":
+                return JANITOR_KING;
+            case "Pawn":
+                return JANITOR_PAWN;
+            default:
+                return -1;
         }
+
+    }
+
+    public float getWeightAtLocation(int x, int y)
+    {
+        return getWeightAtLocation(new Point2(x, y));
     }
 }
