@@ -10,4 +10,5 @@ public class BasicStateAI : StateAI {
         return moveInfo;
     }
 
+
 }

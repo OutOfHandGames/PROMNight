@@ -85,4 +85,13 @@ public class MapInfoAI : MonoBehaviour {
     }
 
 
+    public Tile getTile(Point2 point)
+    {
+        return getTile(point.x, point.y);
+    }
+
+    public Tile getTile(int x, int y)
+    {
+        return null;
+    }
 }

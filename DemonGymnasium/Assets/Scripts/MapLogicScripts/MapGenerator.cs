@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MapGenerator : MonoBehaviour {
+public class MapGenerator : MonoBehaviour, MapProperties {
     public int height = 10;
     public int width = 10;
     public float obstructionPercantage = .05f;
@@ -99,6 +99,16 @@ public class MapGenerator : MonoBehaviour {
     public static Tile getTileAtPoint(int x, int y)
     {
         return mapTiles[x, y];
+    }
+
+    public Tile getTile(Point2 point)
+    {
+        return mapTiles[point.x, point.y];
+    }
+
+    public Tile getTile(int x, int y)
+    {
+        return getTile(new Point2(x, y));
     }
 
     public static void updateTileScore()
