@@ -10,18 +10,19 @@ public class PlayerSelectManager : MonoBehaviour {
 
     Camera mainCamera;
     GameManager gameManager;
-    PlayerModal playerModal;
+    public ActionPanel actionPanel;
 
     void Start()
     {
         mainCamera = GameObject.FindObjectOfType<Camera>();
         gameManager = GetComponent<GameManager>();
-        playerModal = GameObject.FindObjectOfType<PlayerModal>();
+        //actionPanel = GameObject.FindObjectOfType<ActionPanel>();
     }
 
     void Update()
     {
-        if (!ignoreClick && Input.GetButtonDown("Fire1"))
+        
+        if (!ignoreClick && InputTouchScreen.GetNewTouchDown())
         {
             mouseClicked();
         }
@@ -33,7 +34,7 @@ public class PlayerSelectManager : MonoBehaviour {
         {
             resetSelection();
             currentTileSelected = null;
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            Ray ray = mainCamera.ScreenPointToRay(InputTouchScreen.newTouchPosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
@@ -49,8 +50,9 @@ public class PlayerSelectManager : MonoBehaviour {
                         setHighlightColor(tileEntity);
                         tileEntity.GetComponentInChildren<SpriteRenderer>().color = Color.green;
 
-                        playerModal.SetUIPos(tileEntity.transform);
-                        playerModal.Enable();
+                        actionPanel.gameObject.SetActive(true);
+                        actionPanel.Initialize(tileEntity.transform);
+                        
                     }
 
                 }
@@ -80,5 +82,10 @@ public class PlayerSelectManager : MonoBehaviour {
     {
        resetColor();
         currentCharacterSelected = null;
+    }
+
+    public static void TouchDetected(int touchCount)
+    {
+
     }
 }

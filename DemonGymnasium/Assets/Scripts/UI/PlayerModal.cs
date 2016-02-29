@@ -83,7 +83,7 @@ public class PlayerModal : MonoBehaviour
 
 	public void SetUIPos(Transform entityTrans){
 		RectTransform actionRt = actionPanel.GetComponent<RectTransform> ();
-
+        
 		Vector3 viewPos = Camera.main.WorldToViewportPoint (entityTrans.position);
 		viewPos = new Vector3 (viewPos.x, viewPos.y);
 		actionRt.anchorMin = viewPos;
