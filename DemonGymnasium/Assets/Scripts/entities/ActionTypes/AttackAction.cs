@@ -5,22 +5,18 @@ using System.Collections.Generic;
 
 public class AttackAction : Actions
 {
-    public override void performAction()
-    {
-        throw new NotImplementedException();
-        
-    }
-
-    public override List<Point2> getValidMoves(Point2 origin, MapGenerator mapGenerator)
-    {
-        List<Point2> allValidMoves = new List<Point2>();
-        return allValidMoves;
-    }
-
-    public override List<Point2> getAffectedTiles()
+    public override List<Point2> getAffectedTiles(Point2 origin, Point2 effectedTile, MapProperties mapProperties)
     {
         throw new NotImplementedException();
     }
 
+    public override List<Point2> getValidMoves(Point2 origin, MapProperties mapProperties)
+    {
+        throw new NotImplementedException();
+    }
 
+    public override void performAction(Point2 tilePoint, MapProperties mapProperties, bool trueAction = true)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -9,11 +9,13 @@ public class AIStateMachine : MonoBehaviour {
     List<Entity> currentEntityList = new List<Entity>();
     GameManager gameManger;
     ActionManager actionManager;
+    MapGenerator mapGenerator;
 
     void Start()
     {
         gameManger = GameObject.FindObjectOfType<GameManager>();
         actionManager = GameObject.FindObjectOfType<ActionManager>();
+        //mapGenerator = GetComponent<MapGenerator>();
     }
 
     public void setAllCurrentEntities()
@@ -64,7 +66,7 @@ public class AIStateMachine : MonoBehaviour {
             mInfo.entity = currentEntityList.ToArray()[Random.Range(0, currentEntityList.Count)];
             mInfo.actionSelected = Random.Range(0, 3);
             Actions action = mInfo.entity.getEntityActionManager().actions[mInfo.actionSelected];
-            List<Point2> validActions = action.findValidPositions(mInfo.entity.getCurrentTile().getLocation());
+            List<Point2> validActions = action.getValidMoves(mInfo.entity.getCurrentTile().getLocation(), mapGenerator);
             if (validActions.Count > 1)
             {
                 mInfo.tilePositionSelected = validActions.ToArray()[Random.Range(0, validActions.Count)];

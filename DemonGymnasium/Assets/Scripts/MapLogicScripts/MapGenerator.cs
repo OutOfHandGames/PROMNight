@@ -148,4 +148,5 @@ public class MapGenerator : MonoBehaviour, MapProperties {
 		return players;
 	}
 
+    
 }

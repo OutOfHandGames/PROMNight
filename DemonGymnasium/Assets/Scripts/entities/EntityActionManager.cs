@@ -10,6 +10,7 @@ public class EntityActionManager : MonoBehaviour {
     void Start()
     {
         Entity entity = GetComponent<Entity>();
+        
         int i = 0;
         foreach(Actions a in actions)
         {
@@ -17,7 +18,7 @@ public class EntityActionManager : MonoBehaviour {
             obj.transform.parent = transform;
             Actions act = obj.GetComponent<Actions>();
             act.setEntity(entity);
-            act.initializeLegalActions();
+            
             actions[i] = act;
             i++;
         }
