@@ -28,7 +28,10 @@ public class MoveAction : Actions
 
     public override List<Point2> getAffectedTiles(Point2 origin, Point2 effectedTile, MapProperties mapProperties)
     {
-        throw new NotImplementedException();
+        List<Point2> allEffectedTiles = new List<Point2>();
+        allEffectedTiles.Add(origin);
+        allEffectedTiles.Add(effectedTile);
+        return allEffectedTiles;
     }
 
     /// <summary>
@@ -54,16 +57,26 @@ public class MoveAction : Actions
     }
 
 
-    public override void performAction(Point2 tilePoint, MapProperties mapProperties, bool makeAction = true)
+    public override bool performAction(Point2 tilePoint, MapProperties mapProperties, bool makeAction = true)
     {
         foreach(Point2 p in validPoints)
         {
             if (p == tilePoint)
             {
-                //List<Point2> affectedTiles = getAffectedTiles(getEntity().getCurrentTile().getLocation(), p)
-                isMoving = true;
-                goalLocation = new Vector3(p.x, 0, p.y);
+                List<Point2> affectedTiles = getAffectedTiles(getEntity().getCurrentTile().getLocation(), p, mapProperties);
+                mapProperties.getTile(affectedTiles[0]).setEntity(null);
+                mapProperties.getTile(affectedTiles[1]).setEntity(getEntity());
+
+                if (makeAction)
+                {
+                    isMoving = true;
+                    goalLocation = new Vector3(p.x, 0, p.y);
+                    return true;
+                }
+                return false;
+                
             }
         }
+        return false;
     }
 }

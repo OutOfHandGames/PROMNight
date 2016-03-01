@@ -13,7 +13,7 @@ public abstract class Actions : MonoBehaviour
 
     public abstract List<Point2> getValidMoves(Point2 origin, MapProperties mapProperties);
     public abstract List<Point2> getAffectedTiles(Point2 origin, Point2 effectedTile, MapProperties mapProperties);
-    public abstract void performAction(Point2 tilePoint, MapProperties mapProperties, bool trueAction = true);
+    public abstract bool performAction(Point2 tilePoint, MapProperties mapProperties, bool trueAction = true);
 
     public bool checkTileContainsEnemy(Point2 p, MapProperties mapProperties)
     {
