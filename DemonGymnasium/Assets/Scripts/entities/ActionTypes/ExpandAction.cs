@@ -15,8 +15,19 @@ public class ExpandAction : Actions
         throw new NotImplementedException();
     }
 
-    public override void performAction(Point2 tilePoint, MapProperties mapProperties, bool trueAction = true)
+    public override void onActionClicked(MapProperties mapProperties)
     {
         throw new NotImplementedException();
+    }
+
+    public override bool performAction(Point2 tilePoint, MapProperties mapProperties)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void performAnimations()
+    {
+        Animator anim = getEntity().GetComponent<Animator>();
+        anim.SetTrigger(actionName);
     }
 }

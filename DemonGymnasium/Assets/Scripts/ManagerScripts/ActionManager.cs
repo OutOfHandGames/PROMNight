@@ -13,12 +13,14 @@ public class ActionManager : MonoBehaviour
     PlayerSelectManager playerSelectManager;
     TileColorManager tileColorManager;
     UndoManager undoManager;
+    MapGenerator mapGenerator;
 
     void Start()
     {
         playerSelectManager = GetComponent<PlayerSelectManager>();
         gameManager = GetComponent<GameManager>();
         undoManager = GetComponent<UndoManager>();
+        mapGenerator = GetComponent<MapGenerator>();
         currentActionSelected = -1;
         tileColorManager = GetComponent<TileColorManager>();
     }
@@ -52,7 +54,7 @@ public class ActionManager : MonoBehaviour
         
         currentActionSelected = actionID;
         
-        action.OnActionClicked(this);
+        action.OnActionClicked();
         tileColorManager.colorValidSquares(action.getValidPosition());
 
 

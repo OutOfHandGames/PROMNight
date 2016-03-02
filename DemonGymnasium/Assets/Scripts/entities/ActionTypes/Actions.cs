@@ -9,11 +9,14 @@ public abstract class Actions : MonoBehaviour
     public Point2[] legalMoves;
 
     protected List<Point2> validPoints;
+    bool actionActive = false;
     Entity entity;
 
     public abstract List<Point2> getValidMoves(Point2 origin, MapProperties mapProperties);
     public abstract List<Point2> getAffectedTiles(Point2 origin, Point2 effectedTile, MapProperties mapProperties);
-    public abstract bool performAction(Point2 tilePoint, MapProperties mapProperties, bool trueAction = true);
+    public abstract bool performAction(Point2 tilePoint, MapProperties mapProperties);
+    public abstract void performAnimations();
+    public abstract void onActionClicked(MapProperties mapProperties);
 
     public bool checkTileContainsEnemy(Point2 p, MapProperties mapProperties)
     {
@@ -25,28 +28,26 @@ public abstract class Actions : MonoBehaviour
         return false;
     }
 
-    public bool checkTileContainsObstacle(Point2 p, MapProperties mapProperties) 
+    public bool checkTileContainsObstacle(Tile tile) 
     {
-        Tile tileAtPoint = mapProperties.getTile(p);
-        if (tileAtPoint.getCurrentEntity() == null)
+        if (tile.getCurrentEntity() == null)
         {
             return false;
         }
-        if (tileAtPoint.getCurrentEntity().entityType == Tile.NEUTRAL)
+        if (tile.getCurrentEntity().entityType == Tile.NEUTRAL)
         {
             return true;
         }
         return false;
     }
 
-    public bool checkTileContainsFriendly(Point2 p, MapProperties mapProperties)
+    public bool checkTileContainsFriendly(Tile tile)
     {
-        Tile tileAtPoint = mapProperties.getTile(p);
-        if (tileAtPoint.getCurrentEntity() == null)
+        if (tile.getCurrentEntity() == null)
         {
             return false;
         }
-        if (tileAtPoint.getCurrentEntity().entityType == entity.entityType)
+        if (tile.getCurrentEntity().entityType == entity.entityType)
         {
             return true;
         }
@@ -54,14 +55,18 @@ public abstract class Actions : MonoBehaviour
 
     }
 
-    public bool checkTileOwned(Point2 p, MapProperties mapProperties)
+    public bool checkTileOwned(Tile tile)
     {
-        Tile tileAtPoint = mapProperties.getTile(p);
-        if (tileAtPoint.currentTileType == entity.entityType)
+        if (tile.currentTileType == entity.entityType)
         {
             return true;
         }
         return false;
+    }
+
+    public bool checkTileNeutral(Tile tile)
+    {
+        return tile.currentTileType == Tile.NEUTRAL;
     }
 
     public bool checkPointOutOfBounds(Point2 p)
@@ -77,10 +82,9 @@ public abstract class Actions : MonoBehaviour
         return false;
     }
 
-    public bool checkTileContainsEntity(Point2 p, MapProperties mapProperties)
+    public bool checkTileContainsEntity(Tile t)
     {
-        Tile tileAtPoint = mapProperties.getTile(p);
-        return tileAtPoint.getCurrentEntity() != null;
+        return t.getCurrentEntity() != null;
     }
 
     public Entity getEntity()
@@ -93,5 +97,15 @@ public abstract class Actions : MonoBehaviour
     public void setEntity(Entity entity)
     {
         this.entity = entity;
+    }
+
+    public bool getActionActive()
+    {
+        return actionActive;
+    }
+
+    public void setActionActive(bool actionActive)
+    {
+        this.actionActive = actionActive;
     }
 }
