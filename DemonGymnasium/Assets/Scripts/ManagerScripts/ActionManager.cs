@@ -54,8 +54,7 @@ public class ActionManager : MonoBehaviour
         
         currentActionSelected = actionID;
         
-        action.OnActionClicked();
-        tileColorManager.colorValidSquares(action.getValidPosition());
+        tileColorManager.colorValidSquares(action.getValidMoves(currentEntity.getCurrentLocation(), mapGenerator));
 
 
 
@@ -69,15 +68,15 @@ public class ActionManager : MonoBehaviour
         }
         Actions action = currentEntity.GetComponent<EntityActionManager>().actions[currentActionSelected];
         tileColorManager.resetValidSquares();
-        if (tileSelected != null && currentActionSelected >= 0 && action.getActive())
+        if (tileSelected != null && currentActionSelected >= 0)
         {
             //playerSelectManager.mouseClicked();
-            if (action.performAction(tileSelected, undoManager))
+            if (action.performAction(tileSelected.getLocation(), mapGenerator))
             {
-                undoManager.saveGameState();
+                /*undoManager.saveGameState();
                 undoManager.finishTurn();
                 gameManager.performAction();
-                MapGenerator.updateTileScore();
+                MapGenerator.updateTileScore();*/
             }
         }
         else

@@ -53,6 +53,11 @@ public abstract class Entity : MonoBehaviour {
         return isPlayer;
     }
 
+    public Point2 getCurrentLocation()
+    {
+        return currentTile.getLocation();
+    }
+
     public void setIsPlayer(bool isPlayer)
     {
         this.isPlayer = isPlayer;
