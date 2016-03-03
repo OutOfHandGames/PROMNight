@@ -10,22 +10,29 @@ public class PlayerSelectManager : MonoBehaviour {
 
     Camera mainCamera;
     GameManager gameManager;
-    public ActionPanel actionPanel;
+    bool isMobile = false;
+    ActionPanel actionPanel;
 
     void Start()
     {
         mainCamera = GameObject.FindObjectOfType<Camera>();
         gameManager = GetComponent<GameManager>();
+        isMobile = Application.isMobilePlatform;
         //actionPanel = GameObject.FindObjectOfType<ActionPanel>();
     }
 
     void Update()
     {
-        
-        if (!ignoreClick && InputTouchScreen.GetNewTouchDown())
+        if (!isMobile && Input.GetButtonDown("Fire1")) 
+        {
+            print("I was clicked!");
+            mouseClicked();
+        }
+        else if (InputTouchScreen.GetNewTouchDown())
         {
             mouseClicked();
         }
+
     }
 
     public void mouseClicked()
