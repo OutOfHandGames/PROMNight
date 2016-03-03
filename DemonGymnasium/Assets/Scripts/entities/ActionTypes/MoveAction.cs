@@ -5,9 +5,12 @@ using System.Collections.Generic;
 
 public class MoveAction : Actions
 {
-    public override List<Point2> getAffectedTiles(Point2 origin, Point2 effectedTile, MapProperties mapProperties)
+    public override List<Point2> getAffectedTiles(Point2 origin, Point2 affectedTile, MapProperties mapProperties)
     {
-        throw new NotImplementedException();
+        List<Point2> affectedTiles = new List<Point2>();
+        affectedTiles.Add(origin);
+        affectedTiles.Add(affectedTile);
+        return affectedTiles;
     }
 
     public override List<Point2> getValidMoves(Point2 origin, MapProperties mapProperties)

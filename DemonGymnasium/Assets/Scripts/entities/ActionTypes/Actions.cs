@@ -18,10 +18,9 @@ public abstract class Actions : MonoBehaviour
     public abstract void performAnimations();
     public abstract void onActionClicked(MapProperties mapProperties);
 
-    public bool checkTileContainsEnemy(Point2 p, MapProperties mapProperties)
+    public bool checkTileContainsEnemy(Tile tile)
     {
-        Tile tileAtPoint = mapProperties.getTile(p);
-        if (tileAtPoint.getCurrentEntity() != null && tileAtPoint.getCurrentEntity().entityType != entity.entityType)
+        if (tile.getCurrentEntity() != null && tile.getCurrentEntity().entityType != entity.entityType && !checkTileContainsObstacle(tile))
         {
             return true;
         }
