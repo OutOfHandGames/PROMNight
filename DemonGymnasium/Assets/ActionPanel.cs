@@ -28,35 +28,39 @@ public class ActionPanel : MonoBehaviour {
 	void Update () {
         if (selecting)
         {
-            if (Input.GetTouch(0).phase == TouchPhase.Ended)
-            {
-                Reset();
-            }
+            //if (Input.GetMouseButtonUp(0))
+            //{
+            //    Reset();
+            //}
         }
 	}
 
     public void ShootSelected()
     {
-        Reset();
         actionManager.actionSelected(1);
+        Debug.Log("Action selected: shoot");
+        Reset();
     }
 
     public void MoveSelected()
     {
         Reset();
         actionManager.actionSelected(0);
+        Debug.Log("Action selected: move");
 
     }
     public void ExpandSelected()
     {
         Reset();
         actionManager.actionSelected(2);
+        Debug.Log("Action selected: expand");
 
     }
     public void CancelSelected()
     {
         Reset();
         playerSelectManager.resetSelection();
+        Debug.Log("Action selected: cancel");
     }
 
     public void ShootHovered()
@@ -124,7 +128,7 @@ public class ActionPanel : MonoBehaviour {
 
     public void Initialize(Transform entityTrans)
     {
-        Debug.Log("Initialize");
+        //Debug.Log("Initialize");
         selecting = true;
         SetUIPos(entityTrans);
     }
@@ -133,7 +137,7 @@ public class ActionPanel : MonoBehaviour {
     {
         selecting = false;
         animator.SetTrigger("Reset");
-        Invoke("DisableGameObject", 0.5f);
+        Invoke("DisableGameObject", 1f);
     }
 
     public void DisableGameObject()

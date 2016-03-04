@@ -18,14 +18,14 @@ public class PlayerSelectManager : MonoBehaviour {
         mainCamera = GameObject.FindObjectOfType<Camera>();
         gameManager = GetComponent<GameManager>();
         isMobile = Application.isMobilePlatform;
-        //actionPanel = GameObject.FindObjectOfType<ActionPanel>();
+        actionPanel = GameObject.FindObjectOfType<ActionPanel>();
     }
 
     void Update()
     {
         if (!isMobile && Input.GetButtonDown("Fire1")) 
         {
-            print("I was clicked!");
+            //print("I was clicked!");
             mouseClicked();
         }
         else if (InputTouchScreen.GetNewTouchDown())
@@ -41,12 +41,20 @@ public class PlayerSelectManager : MonoBehaviour {
         {
             resetSelection();
             currentTileSelected = null;
-            Ray ray = mainCamera.ScreenPointToRay(InputTouchScreen.newTouchPosition);
+            Ray ray;
+            if (isMobile)
+            {
+                ray = mainCamera.ScreenPointToRay(InputTouchScreen.newTouchPosition);
+            }
+            else
+            {
+                ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            }
+            
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
                 Tile tile = hit.collider.GetComponent<Tile>();
-
                 currentTileSelected = tile;
                 if (tile != null)
                 {
@@ -64,6 +72,10 @@ public class PlayerSelectManager : MonoBehaviour {
 
                 }
 
+            }
+            else
+            {
+                Debug.Log("hit nothing" + gameObject.name);
             }
         }
     }
