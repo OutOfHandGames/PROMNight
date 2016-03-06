@@ -8,9 +8,10 @@ public abstract class Actions : MonoBehaviour
     public string actionName = "Action";
     public Point2[] legalMoves;
 
-    protected List<Point2> validPoints;
+    protected List<Point2> validPoints = new List<Point2>();
     bool actionActive = false;
     Entity entity;
+
 
     public abstract List<Point2> getValidMoves(Point2 origin, MapProperties mapProperties);
     public abstract List<Point2> getAffectedTiles(Point2 origin, Point2 effectedTile, MapProperties mapProperties);
@@ -20,7 +21,7 @@ public abstract class Actions : MonoBehaviour
 
     public bool checkTileContainsEnemy(Tile tile)
     {
-        if (tile.getCurrentEntity() != null && tile.getCurrentEntity().entityType != entity.entityType && !checkTileContainsObstacle(tile))
+        if (tile.getCurrentEntity() != null && tile.getCurrentEntity().entityType != entity.entityType)
         {
             return true;
         }

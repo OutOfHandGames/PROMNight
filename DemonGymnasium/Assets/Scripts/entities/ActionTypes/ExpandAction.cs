@@ -5,6 +5,13 @@ using System.Collections.Generic;
 
 public class ExpandAction : Actions
 {
+    Animator anim;
+
+    void Start()
+    {
+        anim = getEntity().GetComponentInChildren<Animator>();
+    }
+
     public override List<Point2> getAffectedTiles(Point2 origin, Point2 effectedTile, MapProperties mapProperties)
     {
         Point2 checkPoint = origin;
@@ -26,7 +33,8 @@ public class ExpandAction : Actions
 
     public override List<Point2> getValidMoves(Point2 origin, MapProperties mapProperties)
     {
-        throw new NotImplementedException();
+        validPoints.Clear();
+        return validPoints;
     }
 
     public override void onActionClicked(MapProperties mapProperties)
@@ -52,7 +60,6 @@ public class ExpandAction : Actions
 
     public override void performAnimations()
     {
-        Animator anim = getEntity().GetComponent<Animator>();
-        anim.SetTrigger(actionName);
+        anim.SetTrigger("Expand");
     }
 }

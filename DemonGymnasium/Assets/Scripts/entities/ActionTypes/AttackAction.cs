@@ -6,6 +6,12 @@ using System.Collections.Generic;
 public class AttackAction : Actions
 {
     public int attackRange = 2;
+    Animator anim;
+
+    void Start()
+    {
+        anim = getEntity().GetComponentInChildren<Animator>();
+    }
 
     public override List<Point2> getAffectedTiles(Point2 origin, Point2 effectedTile, MapProperties mapProperties)
     {
@@ -44,6 +50,8 @@ public class AttackAction : Actions
                 {
                     break;
                 }
+                print(mapProperties);
+
                 Tile tileAtPoint = mapProperties.getTile(checkPoint);
                 if (checkTileContainsObstacle(tileAtPoint))
                 {
@@ -66,6 +74,7 @@ public class AttackAction : Actions
         {
             if (p == tilePoint)
             {
+
                 List<Point2> affectedTiles = getAffectedTiles(getEntity().getCurrentTile().getLocation(), tilePoint, mapProperties);
                 foreach(Point2 t in affectedTiles)
                 {
@@ -84,6 +93,6 @@ public class AttackAction : Actions
 
     public override void performAnimations()
     {
-        throw new NotImplementedException();
+        anim.SetTrigger("Attack");
     }
 }

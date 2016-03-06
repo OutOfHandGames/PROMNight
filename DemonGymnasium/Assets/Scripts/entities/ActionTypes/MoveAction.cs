@@ -5,6 +5,35 @@ using System.Collections.Generic;
 
 public class MoveAction : Actions
 {
+    bool isMoving = false;
+    float speed = 2;
+    Vector3 goalLocation;
+    Animator anim;
+
+    void Start()
+    {
+        Point2 eLocation = getEntity().getCurrentLocation();
+        goalLocation = new Vector3(eLocation.x, 0, eLocation.y);
+        anim = getEntity().GetComponentInChildren<Animator>();
+    }
+
+    void Update()
+    {
+        anim.SetBool("Movement", isMoving);
+        if (isMoving)
+        {
+
+            if ((goalLocation - getEntity().transform.position).magnitude < .001f)
+            {
+                isMoving = false;
+            }
+            else
+            {
+                getEntity().transform.position = Vector3.MoveTowards(getEntity().transform.position, goalLocation, Time.deltaTime * speed);
+            }
+        }
+    }
+
     public override List<Point2> getAffectedTiles(Point2 origin, Point2 affectedTile, MapProperties mapProperties)
     {
         List<Point2> affectedTiles = new List<Point2>();
@@ -66,6 +95,7 @@ public class MoveAction : Actions
 
     public override void performAnimations()
     {
-        throw new NotImplementedException();
+        isMoving = true;
+        goalLocation = new Vector3(getEntity().getCurrentLocation().x, 0, getEntity().getCurrentLocation().y);
     }
 }

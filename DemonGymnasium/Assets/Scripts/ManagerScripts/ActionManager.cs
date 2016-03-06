@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class ActionManager : MonoBehaviour
 { 
@@ -35,12 +35,13 @@ public class ActionManager : MonoBehaviour
 
     public void onActionClicked()
     {
+        
         if (currentActionSelected >= 0)
         {
             playerSelectManager.mouseClicked();
             performAction(playerSelectManager.currentTileSelected);
         }
-        if (gameManager.getIsHumanPlayer())
+        else if (gameManager.getIsHumanPlayer())
         {
             playerSelectManager.mouseClicked();
             currentEntity = playerSelectManager.currentCharacterSelected;
@@ -50,11 +51,24 @@ public class ActionManager : MonoBehaviour
     public void actionSelected(int actionID)
     {
         //print(playerSelectManager.currentCharacterSelected);
-        Actions action = currentEntity.GetComponent<EntityActionManager>().actions[actionID];
         
         currentActionSelected = actionID;
-        
-        tileColorManager.colorValidSquares(action.getValidMoves(currentEntity.getCurrentLocation(), mapGenerator));
+        Actions action = currentEntity.GetComponent<EntityActionManager>().actions[actionID];
+        List<Point2> validTiles = action.getValidMoves(currentEntity.getCurrentLocation(), mapGenerator);
+        if (validTiles.Count > 0)
+        {
+            tileColorManager.colorValidSquares(validTiles);
+        }
+        else
+        {
+            if (action is ExpandAction)
+            {
+                print("What the fuck");
+                performAction(mapGenerator.getTile(0, 0));
+            }
+            currentActionSelected = -1;
+
+        }
 
 
 
@@ -71,8 +85,13 @@ public class ActionManager : MonoBehaviour
         if (tileSelected != null && currentActionSelected >= 0)
         {
             //playerSelectManager.mouseClicked();
+            //undoManager.setGameState();
+            //print(action.performAction(tileSelected.getLocation(), mapGenerator));
             if (action.performAction(tileSelected.getLocation(), mapGenerator))
             {
+                action.performAnimations();
+                gameManager.performAction();
+                MapGenerator.updateTileScore();
                 /*undoManager.saveGameState();
                 undoManager.finishTurn();
                 gameManager.performAction();

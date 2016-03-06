@@ -205,7 +205,7 @@ public class GameManager : MonoBehaviour {
         cameraManager.shiftCameraDelay(currentTurn);
         if (currentTurn == DEMON)
         {
-            aiStateMachine.selectRandomActions();
+            //aiStateMachine.selectRandomActions();
         }
     }
 

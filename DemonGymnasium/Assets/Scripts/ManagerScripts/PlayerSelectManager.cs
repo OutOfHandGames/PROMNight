@@ -23,21 +23,21 @@ public class PlayerSelectManager : MonoBehaviour {
 
     void Update()
     {
-        if (!isMobile && Input.GetButtonDown("Fire1")) 
+        if (!isMobile && Input.GetButtonDown("Fire1") && actionPanel.isActiveAndEnabled) 
         {
             //print("I was clicked!");
-            mouseClicked();
+           // mouseClicked();
         }
         else if (InputTouchScreen.GetNewTouchDown())
         {
-            mouseClicked();
+            //mouseClicked();
         }
 
     }
 
     public void mouseClicked()
     {
-        if (!ignoreClick)
+        if (!actionPanel.isActiveAndEnabled)
         {
             resetSelection();
             currentTileSelected = null;
