@@ -10,7 +10,7 @@ public class PlayerSelectManager : MonoBehaviour {
 
     Camera mainCamera;
     GameManager gameManager;
-    bool isMobile = false;
+    public bool isMobile = false;
     ActionPanel actionPanel;
 
     void Start()

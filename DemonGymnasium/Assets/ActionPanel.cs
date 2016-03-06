@@ -12,6 +12,11 @@ public class ActionPanel : MonoBehaviour {
     ActionManager actionManager;
     Animator animator;
 
+    public bool outOfShoot;
+    public bool outOfExpand;
+    public bool outOfMove;
+    public bool outOfCancel;
+
     // Use this for initialization
     void Awake()
     {
@@ -32,6 +37,18 @@ public class ActionPanel : MonoBehaviour {
             //{
             //    Reset();
             //}
+        }
+
+        if (playerSelectManager.isMobile)
+        {
+
+        }
+        else
+        {
+            if (Input.GetMouseButtonDown(0) && (!outOfShoot|!outOfMove|!outOfExpand|!outOfCancel))
+            {
+                Reset();
+            }
         }
 	}
 
@@ -65,6 +82,7 @@ public class ActionPanel : MonoBehaviour {
 
     public void ShootHovered()
     {
+        outOfShoot = false;
         animator.SetBool("highlight_Shoot", true);
         animator.SetBool("highlight_Move", false);
         animator.SetBool("highlight_Expand", false);
@@ -73,6 +91,7 @@ public class ActionPanel : MonoBehaviour {
 
     public void MoveHovered()
     {
+        outOfMove = false;
         animator.SetBool("highlight_Shoot", false);
         animator.SetBool("highlight_Move", true);
         animator.SetBool("highlight_Expand", false);
@@ -81,6 +100,7 @@ public class ActionPanel : MonoBehaviour {
 
     public void ExpandHovered()
     {
+        outOfExpand = false;
         animator.SetBool("highlight_Shoot", false);
         animator.SetBool("highlight_Move", false);
         animator.SetBool("highlight_Expand", true);
@@ -89,6 +109,7 @@ public class ActionPanel : MonoBehaviour {
 
     public void CancelHovered()
     {
+        outOfCancel = false;
         animator.SetBool("highlight_Shoot", false);
         animator.SetBool("highlight_Move", false);
         animator.SetBool("highlight_Expand", false);
@@ -97,21 +118,25 @@ public class ActionPanel : MonoBehaviour {
 
     public void ShootExited()
     {
+        outOfShoot = true;
         animator.SetBool("highlight_Shoot", false);
     }
 
     public void MoveExited()
     {
+        outOfMove = true;
         animator.SetBool("highlight_Move", false);
     }
 
     public void ExpandExited()
     {
+        outOfExpand = true;
         animator.SetBool("highlight_Expand", false);
     }
 
     public void CancelExited()
     {
+        outOfCancel = true;
         animator.SetBool("highlight_Cancel", false);
     }
 
