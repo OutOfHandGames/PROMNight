@@ -13,7 +13,7 @@ public class AIStateMachine : MonoBehaviour {
     {
         gameManager = GameObject.FindObjectOfType<GameManager>();
         actionManager = GameObject.FindObjectOfType<ActionManager>();
-        mapInfo = GetComponent<AIMapInfo>();
+        //mapInfo = GetComponent<AIMapInfo>();
     }
 
     public void performActions()

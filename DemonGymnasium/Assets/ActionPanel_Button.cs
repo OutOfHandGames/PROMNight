@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.EventSystems;
 
-public class ActionPanel_Button : MonoBehaviour,  IPointerEnterHandler, IPointerUpHandler, IPointerExitHandler{
+public class ActionPanel_Button : MonoBehaviour,  IPointerEnterHandler, IPointerUpHandler, IPointerExitHandler, IPointerClickHandler{
 
     public ActionPanel ap;
     public string buttonName;
@@ -20,21 +20,53 @@ public class ActionPanel_Button : MonoBehaviour,  IPointerEnterHandler, IPointer
     public void OnPointerEnter(PointerEventData eventData)
     {
         Debug.Log("On Pointer Enter event");
-        if (buttonName.Equals("Shoot"))
+        if (ap.selecting)
         {
-            ap.ShootHovered();
+            if (buttonName.Equals("Shoot"))
+            {
+                ap.ShootHovered();
+            }
+            else if (buttonName.Equals("Move"))
+            {
+                ap.MoveHovered();
+            }
+            else if (buttonName.Equals("Expand"))
+            {
+                ap.ExpandHovered();
+            }
+            else if (buttonName.Equals("Cancel"))
+            {
+                ap.CancelHovered();
+            }
         }
-        else if (buttonName.Equals("Move"))
+        
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log("On Pointer Click event");
+        if (ap.selecting)
         {
-            ap.MoveHovered();
+            if (buttonName.Equals("Shoot"))
+            {
+                ap.ShootSelected();
+            }
+            else if (buttonName.Equals("Move"))
+            {
+                ap.MoveSelected();
+            }
+            else if (buttonName.Equals("Expand"))
+            {
+                ap.ExpandSelected();
+            }
+            else if (buttonName.Equals("Cancel"))
+            {
+                ap.CancelSelected();
+            }
         }
-        else if (buttonName.Equals("Expand"))
+        else
         {
-            ap.ExpandHovered();
-        }
-        else if (buttonName.Equals("Cancel"))
-        {
-            ap.CancelHovered();
+            Debug.Log("not selecting");
         }
     }
 

@@ -37,19 +37,21 @@ public class ActionPanel : MonoBehaviour {
             //{
             //    Reset();
             //}
-        }
 
-        if (playerSelectManager.isMobile)
-        {
-
-        }
-        else
-        {
-            if (Input.GetMouseButtonDown(0) && (!outOfShoot|!outOfMove|!outOfExpand|!outOfCancel))
+            if (playerSelectManager.isMobile)
             {
-                Reset();
+
+            }
+            else
+            {
+                if (Input.GetMouseButtonDown(0) && (!outOfShoot | !outOfMove | !outOfExpand | !outOfCancel))
+                {
+                    Reset();
+                }
             }
         }
+
+        
 	}
 
     public void ShootSelected()
@@ -61,23 +63,26 @@ public class ActionPanel : MonoBehaviour {
 
     public void MoveSelected()
     {
-        Reset();
+        
         actionManager.actionSelected(0);
         Debug.Log("Action selected: move");
+        Reset();
 
     }
     public void ExpandSelected()
     {
-        Reset();
+        
         actionManager.actionSelected(2);
         Debug.Log("Action selected: expand");
+        Reset();
 
     }
     public void CancelSelected()
     {
-        Reset();
+        
         playerSelectManager.resetSelection();
         Debug.Log("Action selected: cancel");
+        Reset();
     }
 
     public void ShootHovered()
@@ -160,13 +165,17 @@ public class ActionPanel : MonoBehaviour {
 
     public void Reset()
     {
-        selecting = false;
+        outOfCancel = false;
+        outOfExpand = false;
+        outOfMove = false;
+        outOfShoot = false;
         animator.SetTrigger("Reset");
-        Invoke("DisableGameObject", 1f);
+        Invoke("DisableGameObject", 0.5f);
     }
 
     public void DisableGameObject()
     {
+        selecting = false;
         gameObject.SetActive(false);
     }
 
