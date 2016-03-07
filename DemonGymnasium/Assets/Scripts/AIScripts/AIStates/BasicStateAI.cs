@@ -1,14 +1,27 @@
-﻿using System.Collections;
+﻿using System.Collections.Generic;
 using System;
 
 public class BasicStateAI : StateAI {
+    
 
-    public override MoveInfo getBestMove()
+    public override List<MoveInfo> getBestMoves(AIStateMachine aiStateMachine)
     {
-        MoveInfo moveInfo = new MoveInfo();
-
-        return moveInfo;
+        List<MoveInfo> bestMoves = new List<MoveInfo>();
+        return bestMoves;
     }
 
+    public override float scoreMap()
+    {
+        
+        return 0;
+    }
+
+    List<MoveInfo> getRandomMoves(AIMapInfo aiMapInfo)
+    {
+        List<MoveInfo> moveList = new List<MoveInfo>();
+        
+        
+        return moveList;
+    }
 
 }

@@ -62,8 +62,7 @@ public class ActionManager : MonoBehaviour
         else
         {
             if (action is ExpandAction)
-            {
-                print("What the fuck");
+            { 
                 performAction(mapGenerator.getTile(0, 0));
             }
             currentActionSelected = -1;

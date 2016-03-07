@@ -22,6 +22,24 @@ public class Point2  {
         this.y = y;
     }
 
+    public override bool Equals(object obj)
+    {
+        if (!(obj is Point2))
+        {
+            return false;
+        }
+        Point2 p = (Point2)obj;
+        return p.x == this.x && p.y == this.y;
+    }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
+
+    /// <summary>
+    /// Does not literally normalize the point values. Sets x and y to be one unless they are equal to 0;
+    /// </summary>
     public void normalizeValues()
     {
         if (x != 0)
