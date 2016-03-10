@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 
 public class AIStateMachine : MonoBehaviour {
+    public int aiTeam = Tile.DEMON;
 
     GameManager gameManager;
     ActionManager actionManager;
     StateAI currentState = new BasicStateAI();
-    AIMapInfo mapInfo;
-    int aiTeam = Tile.DEMON;
+    public AIMapInfo mapInfo;
 
     void Start()
     {

@@ -63,11 +63,19 @@ public abstract class Entity : MonoBehaviour {
         this.isPlayer = isPlayer;
     }
 
+    public bool getIsDead()
+    {
+        return currentTile == null;
+    }
+
     public virtual void takeDamage()
     {
         //TODO death animation
         currentTile.setEntity(null);
-        gameObject.SetActive(false);
+        if (gameObject != null)
+        {
+            gameObject.SetActive(false); 
+        }
     }
 
 	/**
